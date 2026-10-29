@@ -1,16 +1,21 @@
 {
   "key": "fitness-week-2026-11-03",
-  "updated_at": "2026-10-29T13:24:00Z",
-  "source": "verify",
+  "updated_at": "2026-10-29T13:26:00Z",
+  "source": "e2e-test",
   "week": "2026-11-03 to 2026-11-09",
   "state": {
     "days": {
       "2026-11-03": {
-        "done": false,
-        "weight": "",
-        "exercises": {}
+        "done": true,
+        "weight": "90.2",
+        "exercises": {
+          "a_legpress": {
+            "done": true,
+            "actual": "92kg"
+          }
+        }
       }
     }
   },
-  "mirrored_at": "2026-10-29T13:24:41Z"
+  "mirrored_at": "2026-10-29T13:24:48Z"
 }
