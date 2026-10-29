@@ -126,6 +126,24 @@ footer{margin-top:28px;color:var(--muted);font-size:12px;text-align:center;line-
 .lightbox.open{display:flex}
 .lightbox img{max-width:100%;max-height:100%;object-fit:contain;cursor:zoom-out}
 .lightbox button{position:absolute;top:max(12px,env(safe-area-inset-top,0px));right:max(16px,env(safe-area-inset-right,0px));background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.35);color:#fff;z-index:2}
+.tabs{position:sticky;top:0;z-index:25;display:flex;gap:6px;background:var(--bg);padding:10px 0 8px;margin:0 0 4px}
+.tab{flex:1;min-height:44px;border-radius:12px;font-size:15px;font-weight:650;background:#fff}
+.tab.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.chart{width:100%;height:auto;display:block}
+.chart-line{fill:none;stroke:var(--accent);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;animation:chartdraw 1.1s ease .1s forwards}
+.chart-dot{fill:#fff;stroke:var(--accent);stroke-width:2;opacity:0;animation:chartfade .4s ease 1s forwards}
+.chart-grid{stroke:var(--line);stroke-width:1}
+.chart-txt{font-size:10px;fill:var(--muted)}
+.spark{flex-shrink:0}
+.spark .chart{width:auto;height:auto}
+@keyframes chartdraw{to{stroke-dashoffset:0}}
+@keyframes chartfade{to{opacity:1}}
+.lift-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid var(--line)}
+.lift-row:first-child{border-top:0}
+.lift-info{flex:1;min-width:0}
+.lift-name{font-weight:650;font-size:14px}
+.lift-val{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.stat-big{font-size:22px;font-weight:700;font-variant-numeric:tabular-nums}
 @media(max-width:420px){.toc{grid-template-columns:repeat(4,minmax(0,1fr))}}
 @media(min-width:640px){
   .wrap{padding-left:24px;padding-right:24px}
@@ -146,6 +164,11 @@ footer{margin-top:28px;color:var(--muted);font-size:12px;text-align:center;line-
 </head>
 <body>
 <div class="wrap">
+  <nav class="tabs" aria-label="页面切换">
+    <button type="button" class="tab active" id="tabBtn-week" onclick="switchTab('week')">本周</button>
+    <button type="button" class="tab" id="tabBtn-stats" onclick="switchTab('stats')">统计</button>
+  </nav>
+  <div id="tab-week">
   <header class="hero">
     <div class="eyebrow">训练 · 饮食 · 记录</div>
     <h1>健身周计划</h1>
@@ -193,6 +216,22 @@ footer{margin-top:28px;color:var(--muted);font-size:12px;text-align:center;line-
   <footer>
     基于你的 A 日实测重量预填建议栏 · 本机保存 + 自动同步教练 · 生成日期 2026-10-29
   </footer>
+  </div><!-- /tab-week -->
+
+  <div id="tab-stats" hidden>
+    <section class="card" aria-labelledby="stat-weight-title">
+      <div class="section-heading"><h2 id="stat-weight-title">体重趋势</h2><span class="small" id="weightStatText"></span></div>
+      <div id="weightChart"></div>
+    </section>
+    <section class="card" aria-labelledby="stat-done-title">
+      <div class="section-heading"><h2 id="stat-done-title">完成率</h2></div>
+      <div id="completionBox"></div>
+    </section>
+    <section class="card" aria-labelledby="stat-lift-title">
+      <div class="section-heading"><h2 id="stat-lift-title">主要力量项目</h2><span class="small">最近 5 次记录</span></div>
+      <div id="liftBox"></div>
+    </section>
+  </div><!-- /tab-stats -->
 </div>
 
 <div class="stickybar">
@@ -211,7 +250,9 @@ footer{margin-top:28px;color:var(--muted);font-size:12px;text-align:center;line-
 </div>
 
 <script>
-const STORAGE_KEY = "fitness-week-2026-11-03";
+const STORAGE_KEY = "fitness-tracker-v2";
+const OLD_STORAGE_KEY = "fitness-week-2026-11-03";
+const WEEK_KEY = "2026-11-03";
 
 /* Auto-sync to coach (no export step).
    Write target: jstash public bin with a bin-scoped edit_token (NOT a GitHub PAT).
@@ -322,8 +363,12 @@ const days = [
   {date:"2026-11-09", dow:"日", type:"R", title:"休息 + 轻松走", summary:"散步恢复", exercises:null, cardio:"轻松走 20–30 分钟，充分恢复"}
 ];
 
+const EX_NAMES = {};
+warmups.forEach((w,i)=>{ EX_NAMES["wu"+i] = w.name; });
+[A,B,C].forEach(list=>list.forEach(e=>{ EX_NAMES[e.id] = e.name; }));
+
 function defaultState(){
-  const st = {days:{}};
+  const st = {schemaVersion:2, weekKey:WEEK_KEY, days:{}, weeks:{}, weightLog:[], liftLog:[]};
   days.forEach(d=>{
     st.days[d.date] = {done:false, weight:"", cardioDone:false, exercises:{}};
     if(d.withWarmup){
@@ -369,27 +414,68 @@ document.addEventListener("keydown", (e)=>{
   if(lightbox.classList.contains("open")) closeLightbox();
 });
 
+function mergeDaysInto(baseDays, parsedDays){
+  Object.keys(baseDays).forEach(k=>{
+    if(parsedDays && parsedDays[k]){
+      baseDays[k].done = !!parsedDays[k].done;
+      baseDays[k].weight = parsedDays[k].weight || "";
+      baseDays[k].cardioDone = !!parsedDays[k].cardioDone;
+      const ex = parsedDays[k].exercises || {};
+      Object.keys(baseDays[k].exercises).forEach(eid=>{
+        if(ex[eid]){
+          baseDays[k].exercises[eid].done = !!ex[eid].done;
+          baseDays[k].exercises[eid].actual = ex[eid].actual || "";
+        }
+      });
+    }
+  });
+}
+
+function parseNumKg(v){
+  const s = String(v == null ? "" : v).replace(/[^0-9.]/g, "");
+  if(!s) return null;
+  const n = parseFloat(s);
+  return isFinite(n) ? n : null;
+}
+
+function migrateV1(parsed){
+  const base = defaultState();
+  mergeDaysInto(base.days, parsed.days);
+  base.weeks[WEEK_KEY] = {days: JSON.parse(JSON.stringify(base.days))};
+  days.forEach(d=>{
+    const n = parseNumKg(base.days[d.date].weight);
+    if(n != null) base.weightLog.push({date:d.date, kg:n});
+    const exs = base.days[d.date].exercises;
+    Object.keys(exs).forEach(eid=>{
+      const m = parseNumKg(exs[eid].actual);
+      if(m != null) base.liftLog.push({date:d.date, exerciseId:eid, name:EX_NAMES[eid] || eid, kg:m});
+    });
+  });
+  return base;
+}
+
 function loadState(){
   try{
-    const raw = localStorage.getItem(STORAGE_KEY);
+    let raw = localStorage.getItem(STORAGE_KEY);
+    let fromOld = false;
+    if(!raw){
+      raw = localStorage.getItem(OLD_STORAGE_KEY);
+      fromOld = !!raw;
+    }
     if(!raw) return defaultState();
     const parsed = JSON.parse(raw);
+    if(!parsed.schemaVersion || !parsed.weeks){
+      const migrated = migrateV1(parsed);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(migrated));
+      return migrated;
+    }
     const base = defaultState();
-    // merge
-    Object.keys(base.days).forEach(k=>{
-      if(parsed.days && parsed.days[k]){
-        base.days[k].done = !!parsed.days[k].done;
-        base.days[k].weight = parsed.days[k].weight || "";
-        base.days[k].cardioDone = !!parsed.days[k].cardioDone;
-        const ex = parsed.days[k].exercises || {};
-        Object.keys(base.days[k].exercises).forEach(eid=>{
-          if(ex[eid]){
-            base.days[k].exercises[eid].done = !!ex[eid].done;
-            base.days[k].exercises[eid].actual = ex[eid].actual || "";
-          }
-        });
-      }
-    });
+    mergeDaysInto(base.days, parsed.days);
+    base.weeks = (parsed.weeks && typeof parsed.weeks === "object") ? parsed.weeks : {};
+    base.weightLog = Array.isArray(parsed.weightLog) ? parsed.weightLog : [];
+    base.liftLog = Array.isArray(parsed.liftLog) ? parsed.liftLog : [];
+    if(!base.weeks[WEEK_KEY]) base.weeks[WEEK_KEY] = {days: JSON.parse(JSON.stringify(base.days))};
+    if(fromOld) localStorage.setItem(STORAGE_KEY, JSON.stringify(base));
     return base;
   }catch(e){
     return defaultState();
@@ -397,11 +483,13 @@ function loadState(){
 }
 
 function save(){
+  state.weeks[state.weekKey] = {days: JSON.parse(JSON.stringify(state.days))};
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
   const el = document.getElementById("saveHint");
   el.textContent = "已保存到本机 · " + new Date().toLocaleString("zh-CN", {hour12:false});
   updateProgress();
   renderOverviewWeights();
+  if(!document.getElementById("tab-stats").hidden) renderStats();
   scheduleSync();
 }
 
@@ -418,6 +506,8 @@ function buildPayload(){
     week: "2026-11-03 to 2026-11-09",
     updated_at: new Date().toISOString(),
     source: "pwa",
+    schemaVersion: state.schemaVersion,
+    weekKey: state.weekKey,
     state
   };
 }
@@ -558,6 +648,15 @@ function toggleEx(date, id, val){
 }
 function setActual(date, id, val){
   state.days[date].exercises[id].actual = val;
+  const n = parseNumKg(val);
+  const idx = state.liftLog.findIndex(e=>e.date===date && e.exerciseId===id);
+  if(n == null){
+    if(idx >= 0) state.liftLog.splice(idx, 1);
+  } else if(idx >= 0){
+    state.liftLog[idx].kg = n;
+  } else {
+    state.liftLog.push({date:date, exerciseId:id, name:EX_NAMES[id] || id, kg:n});
+  }
   save();
 }
 function toggleDay(date, val){
@@ -573,6 +672,15 @@ function toggleCardio(date, val){
 }
 function setWeight(date, val){
   state.days[date].weight = val;
+  const n = parseNumKg(val);
+  const idx = state.weightLog.findIndex(e=>e.date===date);
+  if(n == null){
+    if(idx >= 0) state.weightLog.splice(idx, 1);
+  } else if(idx >= 0){
+    state.weightLog[idx].kg = n;
+  } else {
+    state.weightLog.push({date:date, kg:n});
+  }
   save();
 }
 function renderOverviewWeights(){
@@ -592,6 +700,111 @@ function updateProgress(){
     if(state.days[d.date].done) done += 1;
   });
   document.getElementById("progressText").textContent = `本周完成 ${done}/${total} 天`;
+}
+
+/* ---- Stats tab ---- */
+function switchTab(tab){
+  document.getElementById("tab-week").hidden = tab !== "week";
+  document.getElementById("tab-stats").hidden = tab !== "stats";
+  document.getElementById("tabBtn-week").classList.toggle("active", tab === "week");
+  document.getElementById("tabBtn-stats").classList.toggle("active", tab === "stats");
+  if(tab === "stats") renderStats();
+  window.scrollTo({top:0});
+}
+
+function sortedLog(arr){
+  return [...(arr||[])].filter(e=>e && typeof e.kg === "number" && isFinite(e.kg))
+    .sort((a,b)=> a.date < b.date ? -1 : (a.date > b.date ? 1 : 0));
+}
+
+function sparklineSvg(points, w, h){
+  const min = Math.min(...points.map(p=>p.kg));
+  const max = Math.max(...points.map(p=>p.kg));
+  const span = (max - min) || 1;
+  const pad = 5;
+  const stepX = points.length > 1 ? (w - pad*2) / (points.length - 1) : 0;
+  const coords = points.map((p,i)=>{
+    const x = pad + i*stepX;
+    const y = h - pad - ((p.kg - min) / span) * (h - pad*2);
+    return [x, y];
+  });
+  const line = coords.map((c,i)=>(i?"L":"M") + c[0].toFixed(1) + " " + c[1].toFixed(1)).join(" ");
+  const dots = coords.map((c,i)=>`<circle class="chart-dot" cx="${c[0].toFixed(1)}" cy="${c[1].toFixed(1)}" r="2.5"><title>${points[i].date} · ${points[i].kg} kg</title></circle>`).join("");
+  return `<svg class="chart" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" role="img" aria-label="最近记录趋势"><path class="chart-line" pathLength="1" d="${line}"/>${dots}</svg>`;
+}
+
+function renderWeightChart(){
+  const el = document.getElementById("weightChart");
+  const statEl = document.getElementById("weightStatText");
+  const log = sortedLog(state.weightLog);
+  if(log.length < 2){
+    el.innerHTML = `<p class="note">记录至少 2 天的体重后，这里会显示体重趋势图。</p>`;
+    statEl.textContent = log.length === 1 ? `当前 ${log[0].kg} kg` : "";
+    return;
+  }
+  const W = 320, H = 160, pad = 16;
+  const min = Math.min(...log.map(p=>p.kg));
+  const max = Math.max(...log.map(p=>p.kg));
+  const span = (max - min) || 1;
+  const stepX = (W - pad*2) / (log.length - 1);
+  const coords = log.map((p,i)=>{
+    const x = pad + i*stepX;
+    const y = H - pad - ((p.kg - min) / span) * (H - pad*2);
+    return [x, y];
+  });
+  const line = coords.map((c,i)=>(i?"L":"M")+c[0].toFixed(1)+" "+c[1].toFixed(1)).join(" ");
+  const dots = coords.map((c,i)=>`<circle class="chart-dot" cx="${c[0].toFixed(1)}" cy="${c[1].toFixed(1)}" r="3.5"><title>${log[i].date} · ${log[i].kg} kg</title></circle>`).join("");
+  el.innerHTML = `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="体重趋势图">
+    <line class="chart-grid" x1="${pad}" y1="${H-pad}" x2="${W-pad}" y2="${H-pad}"/>
+    <path class="chart-line" pathLength="1" d="${line}"/>${dots}</svg>
+    <p class="small">${log[0].date} · ${log[0].kg} kg → ${log[log.length-1].date} · ${log[log.length-1].kg} kg</p>`;
+  const delta = +(log[log.length-1].kg - log[0].kg).toFixed(1);
+  statEl.textContent = `最新 ${log[log.length-1].kg} kg · 较首次 ${delta>0?"+":""}${delta} kg`;
+}
+
+function renderCompletion(){
+  const el = document.getElementById("completionBox");
+  let total = 0, done = 0;
+  Object.keys(state.weeks).sort().forEach(wk=>{
+    const wd = state.weeks[wk] && state.weeks[wk].days;
+    if(!wd) return;
+    Object.keys(wd).forEach(date=>{
+      total++;
+      if(wd[date] && wd[date].done) done++;
+    });
+  });
+  const pct = total ? Math.round(done/total*100) : 0;
+  let weekDone = 0;
+  days.forEach(d=>{ if(state.days[d.date].done) weekDone++; });
+  el.innerHTML = `
+    <p class="stat-big">${pct}% <span class="small">（历史共 ${done}/${total} 天）</span></p>
+    <p class="small">含所有已归档周与本周 · 本周 ${weekDone}/7 天</p>`;
+}
+
+const PRIMARY_LIFTS = ["a_legpress","a_chest","a_row","b_squat","c_rdl"];
+
+function renderLifts(){
+  const el = document.getElementById("liftBox");
+  const rows = [];
+  PRIMARY_LIFTS.forEach(id=>{
+    const log = sortedLog((state.liftLog||[]).filter(e=>e.exerciseId===id));
+    if(!log.length) return;
+    const last = log[log.length-1];
+    const recent = log.slice(-5);
+    const name = last.name || EX_NAMES[id] || id;
+    const spark = recent.length > 1 ? `<span class="spark">${sparklineSvg(recent, 96, 40)}</span>` : "";
+    rows.push(`<div class="lift-row">
+      <div class="lift-info"><div class="lift-name">${esc(name)}</div>
+      <div class="lift-val">最近 ${last.date} · ${last.kg} kg · 共 ${log.length} 次记录</div></div>
+      ${spark}</div>`);
+  });
+  el.innerHTML = rows.length ? rows.join("") : `<p class="note">在「本周」记录主要项目的实际重量后，这里会显示长期进展。</p>`;
+}
+
+function renderStats(){
+  renderWeightChart();
+  renderCompletion();
+  renderLifts();
 }
 
 function exportJson(){
@@ -634,11 +847,15 @@ function importJson(){
 }
 
 function resetData(){
-  if(!confirm("确定清空本周所有勾选与重量记录？")) return;
-  localStorage.removeItem(STORAGE_KEY);
-  state = defaultState();
+  if(!confirm("确定清空本周所有勾选与重量记录？（历史周与长期记录保留）")) return;
+  const weekDates = days.map(d=>d.date);
+  const fresh = defaultState();
+  state.days = fresh.days;
+  state.weightLog = state.weightLog.filter(e=>!weekDates.includes(e.date));
+  state.liftLog = state.liftLog.filter(e=>!weekDates.includes(e.date));
+  save();
   render();
-  document.getElementById("saveHint").textContent = "已清空";
+  document.getElementById("saveHint").textContent = "已清空本周";
   updateProgress();
 }
 
