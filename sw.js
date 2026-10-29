@@ -1,4 +1,4 @@
-const CACHE = 'fitness-week-2026-11-03-v3-ui';
+const CACHE = 'fitness-week-2026-11-03-v4-lightbox';
 const ASSETS = [
   './',
   './index.html',
