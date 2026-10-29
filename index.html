@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#0f766e" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="健身周计划" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="description" content="下周训练+饮食计划：勾选、记重量与体重（本机保存）" />
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png" />
+<title>下周训练饮食计划 2026-11-03～11-09</title>
+<style>
+:root{
+  --bg:#f4f6f8; --card:#fff; --ink:#1a2332; --muted:#5b6b7c;
+  --line:#e2e8f0; --accent:#0d9488; --accent2:#0f766e; --soft:#ecfdf5;
+  --warn:#b45309; --ok:#047857; --radius:14px;
+  --shadow:0 1px 3px rgba(15,23,42,.06),0 8px 24px rgba(15,23,42,.04);
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
+a{color:var(--accent2)}
+.wrap{max-width:880px;margin:0 auto;padding:16px 14px 80px}
+header.hero{background:linear-gradient(135deg,#0f766e,#14b8a6);color:#fff;border-radius:18px;padding:20px 18px;box-shadow:var(--shadow);margin-bottom:16px}
+header.hero h1{margin:0 0 8px;font-size:1.35rem}
+header.hero p{margin:4px 0;opacity:.95;font-size:.95rem}
+.macros{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.macros span{background:rgba(255,255,255,.18);padding:6px 10px;border-radius:999px;font-size:.85rem}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px;margin:12px 0;box-shadow:var(--shadow)}
+.card h2{margin:0 0 10px;font-size:1.1rem}
+.card h3{margin:14px 0 8px;font-size:1rem;color:var(--accent2)}
+.note{background:var(--soft);border:1px solid #a7f3d0;border-radius:12px;padding:10px 12px;font-size:.9rem;color:#065f46}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+button,.btn{appearance:none;border:1px solid var(--line);background:#fff;color:var(--ink);padding:8px 12px;border-radius:10px;font-size:.9rem;cursor:pointer}
+button.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+button.danger{background:#fff;border-color:#fecaca;color:#b91c1c}
+button:active{transform:scale(.98)}
+.overview{width:100%;border-collapse:collapse;font-size:.82rem}
+.overview th,.overview td{border:1px solid var(--line);padding:8px 6px;text-align:left;vertical-align:top}
+.overview th{background:#f8fafc;position:sticky;top:0}
+.overview a{text-decoration:none;font-weight:600}
+.day{scroll-margin-top:12px}
+.badge{display:inline-block;padding:2px 8px;border-radius:999px;font-size:.75rem;font-weight:600}
+.badge.A{background:#dbeafe;color:#1d4ed8}
+.badge.B{background:#fce7f3;color:#be185d}
+.badge.C{background:#fef3c7;color:#b45309}
+.badge.R{background:#e2e8f0;color:#334155}
+.meals{display:grid;gap:10px}
+@media(min-width:640px){.meals{grid-template-columns:1fr 1fr}}
+.meal{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
+.meal img{width:100%;height:140px;object-fit:cover;display:block;background:#eef2f7}
+.meal .b{padding:10px}
+.meal .t{font-weight:700;font-size:.92rem}
+.meal .d{font-size:.85rem;color:var(--muted);margin-top:4px}
+.ex{border:1px solid var(--line);border-radius:12px;padding:12px;margin:10px 0;background:#fbfdff}
+.ex-head{display:flex;gap:10px;align-items:flex-start}
+.ex-head input[type=checkbox]{width:22px;height:22px;margin-top:2px;accent-color:var(--accent)}
+.ex h4{margin:0;font-size:.98rem}
+.meta{font-size:.85rem;color:var(--muted);margin:4px 0}
+.cues{font-size:.88rem;background:#fff;border-left:3px solid var(--accent);padding:6px 10px;margin:8px 0}
+.ex img{width:100%;max-height:220px;object-fit:contain;border-radius:10px;border:1px solid var(--line);background:#fff;margin-top:8px}
+.inputs{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:8px}
+.inputs label{font-size:.85rem;color:var(--muted)}
+.inputs input[type=text],.inputs input[type=number]{border:1px solid var(--line);border-radius:8px;padding:7px 9px;font-size:.9rem;width:140px;background:#fff}
+.daydone{display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding:10px;background:var(--soft);border-radius:12px;margin-top:8px}
+.toc{display:flex;flex-wrap:wrap;gap:8px}
+.toc a{background:#fff;border:1px solid var(--line);padding:6px 10px;border-radius:999px;font-size:.85rem;text-decoration:none;color:var(--ink)}
+.stickybar{position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-top:1px solid var(--line);padding:8px 12px;display:flex;justify-content:center;gap:8px;z-index:20}
+.stickybar .inner{max-width:880px;width:100%;display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;align-items:center}
+.small{font-size:.8rem;color:var(--muted)}
+.done .ex h4{text-decoration:line-through;opacity:.7}
+footer{margin-top:24px;color:var(--muted);font-size:.8rem;text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <h1>下周训练 + 饮食计划</h1>
+    <p>2026-11-03（一）～ 2026-11-09（日）· 上海时区 · 器械优先</p>
+    <p>目标：12周减约30斤；本周力量 A→B→C（一/三/五），其余休息+有氧</p>
+    <div class="macros">
+      <span>~1900 kcal</span><span>蛋白 200g</span><span>脂肪 55–60g</span><span>碳水 150–160g</span>
+      <span>单次 60–90 分钟</span>
+    </div>
+  </header>
+
+  <div class="card note">
+    <strong>PWA 用法（Safari）：</strong>用 Safari 打开本页 → 分享 →「添加到主屏幕」。之后像 App 一样打开；勾选、实际重量、当日体重保存在本机 localStorage（键名 <code>fitness-week-2026-11-03</code>），刷新不丢。
+    <br/>首次打开后可离线查阅（Service Worker 已缓存页面与图片）。数据<strong>不会</strong>自动同步给教练；点「导出 JSON」贴回聊天即可。
+  </div>
+
+  <div class="card">
+    <h2>快捷跳转</h2>
+    <div class="toc" id="toc"></div>
+    <div class="toolbar">
+      <button class="primary" type="button" onclick="exportJson()">导出 JSON</button>
+      <button type="button" onclick="importJson()">导入 JSON</button>
+      <button class="danger" type="button" onclick="resetData()">清空本周记录</button>
+    </div>
+    <p class="small" id="saveHint">尚未保存本地改动</p>
+  </div>
+
+  <div class="card">
+    <h2>一周总览</h2>
+    <div style="overflow:auto">
+      <table class="overview" id="overview">
+        <thead>
+          <tr><th>日期</th><th>类型</th><th>饮食摘要</th><th>训练摘要</th><th>完成</th><th>体重 kg</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div id="days"></div>
+
+  <footer>
+    基于你的 A 日实测重量预填建议栏 · 数据仅存本机 · 生成日期 2026-10-29
+  </footer>
+</div>
+
+<div class="stickybar">
+  <div class="inner">
+    <span class="small" id="progressText">进度 —</span>
+    <div>
+      <button class="primary" type="button" onclick="exportJson()">导出</button>
+      <button type="button" onclick="window.scrollTo({top:0,behavior:'smooth'})">回顶</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const STORAGE_KEY = "fitness-week-2026-11-03";
+
+const mealVariants = [
+  {
+    bf: "燕麦40g + 全蛋2 + 蛋清2 + 蓝莓；约450kcal / P35",
+    lunch: "鸡胸150g + 米饭100g熟 + 西兰花200g；约550kcal / P50",
+    dinner: "瘦牛150g + 红薯150g + 生菜；约550kcal / P50",
+    snack: "希腊酸奶200g 或 乳清；补足至 P200"
+  },
+  {
+    bf: "希腊酸奶200g + 香蕉半根 + 水煮蛋2；约420kcal / P40",
+    lunch: "鸡胸150g + 糙米100g熟 + 青菜；约540kcal / P50",
+    dinner: "鳕鱼/龙利鱼150g + 红薯150g + 生菜；约520kcal / P48",
+    snack: "乳清一勺或低脂奶；补蛋白"
+  },
+  {
+    bf: "燕麦40g + 乳清半勺 + 蓝莓；全蛋1+蛋清3；约450kcal / P40",
+    lunch: "瘦牛150g + 米饭90g熟 + 西兰花；约560kcal / P50",
+    dinner: "鸡腿去皮150g + 杂粮饭100g + 黄瓜番茄；约540kcal / P48",
+    snack: "希腊酸奶200g"
+  },
+  {
+    bf: "全麦面包2片 + 鸡蛋2 + 番茄；约430kcal / P32",
+    lunch: "鸡胸150g + 红薯150g + 西兰花；约530kcal / P50",
+    dinner: "虾150g + 米饭90g + 生菜；约500kcal / P45",
+    snack: "乳清或酸奶补蛋白"
+  },
+  {
+    bf: "燕麦40g + 全蛋2 + 蛋清2 + 蓝莓；约450kcal / P35",
+    lunch: "金枪鱼罐（水浸）120g + 米饭100g + 青菜；约520kcal / P48",
+    dinner: "瘦牛150g + 红薯150g + 生菜；约550kcal / P50",
+    snack: "希腊酸奶200g"
+  },
+  {
+    bf: "蛋白糊：乳清+燕麦30g+水；水煮蛋2；约400kcal / P42",
+    lunch: "鸡胸150g + 米饭100g + 西兰花；约550kcal / P50",
+    dinner: "鱼150g + 杂粮100g + 沙拉；约520kcal / P48",
+    snack: "可选酸奶"
+  },
+  {
+    bf: "燕麦40g + 全蛋2 + 蛋清2；约430kcal / P35",
+    lunch: "鸡胸/瘦牛轮换150g + 米饭90g + 蔬菜大份；约540kcal / P50",
+    dinner: "清淡鱼肉150g + 红薯120g + 生菜；约500kcal / P45",
+    snack: "按当日缺口补蛋白至约200g"
+  }
+];
+
+const warmups = [
+  {name:"热身1：有氧+动态拉伸", sets:"约5–8分钟", suggest:"-", cues:"椭圆/快走5分钟；高抬腿/开合跳/肩绕环/髋开合", img:"images/warmup1.jpg"},
+  {name:"热身2：空组激活", sets:"各1×12–15", suggest:"工作组40–50%", cues:"腿举、胸推、划船轻重量走一遍", img:"images/warmup2.jpg"}
+];
+
+const A = [
+  {id:"a_legpress", name:"腿举 / 哈克或史密斯深蹲", sets:"4×8–10", rest:"休息2分钟", suggest:"≈91.8 kg（60kg+2×35lb）", cues:"腰贴垫；脚肩宽；膝朝脚尖；底部勿弹", img:"images/form-legpress.jpg"},
+  {id:"a_chest", name:"器械胸推 / 史密斯卧推", sets:"4×8–10", rest:"休息2分钟", suggest:"90 lb ≈ 40.8 kg", cues:"手柄胸高；肩胛收；肘约45°；不停锁死", img:"images/form-chest.jpg"},
+  {id:"a_row", name:"坐姿划船", sets:"3×10–12", rest:"休息90秒", suggest:"50 kg", cues:"躯干稳；拉至下肋；肩胛后缩", img:"images/form-row.jpg"},
+  {id:"a_legcurl", name:"器械腿弯举", sets:"3×10–12", rest:"休息90秒", suggest:"40 kg", cues:"髋贴垫；脚跟卷向臀；慢放", img:"images/form-legcurl.jpg"},
+  {id:"a_arms", name:"器械弯举 + 绳索下压（超级组）", sets:"3×10–12", rest:"组间休息90秒", suggest:"弯举单边15 kg；下压35 kg", cues:"肘贴身；顶峰停1秒；宁轻勿甩", img:"images/form-arms-ss.jpg"},
+  {id:"a_crunch", name:"绳索卷腹", sets:"3×12–15", rest:"休息45–60秒", suggest:"50 kg", cues:"高位绳贴头侧；髋固定；卷脊柱不甩腰", img:"images/form-crunch.jpg"},
+  {id:"a_cardio", name:"课末有氧", sets:"15–20分钟", rest:"-", suggest:"-", cues:"快走/椭圆，能说话略喘", img:""}
+];
+
+const B = [
+  {id:"b_squat", name:"史密斯深蹲或腿举", sets:"4×8–10", rest:"休息2分钟", suggest:"史密斯40–60 / 腿举可沿用≈92 kg", cues:"同A腿部要点；背挺核心收", img:"images/form-squat.jpg"},
+  {id:"b_pulldown", name:"高位下拉 / 坐姿划船变式", sets:"4×8–10", rest:"休息2分钟", suggest:"40–55 kg（可参考划船50）", cues:"胸挺肩下沉；拉至上胸；控下放", img:"images/form-pulldown.jpg"},
+  {id:"b_shoulder", name:"器械肩推", sets:"3×8–10", rest:"休息90秒", suggest:"25–40 kg", cues:"不耸肩；行程完整不锁死", img:"images/form-shoulderpress.jpg"},
+  {id:"b_legext", name:"腿伸展", sets:"3×10–12", rest:"休息90秒", suggest:"30–45 kg", cues:"顶峰停；勿弹膝（见图库同型器械）", img:""},
+  {id:"b_side", name:"绳索侧平举 + 绳索面拉（超级组）", sets:"3×12–15", rest:"休息90秒", suggest:"各10–20 kg", cues:"轻重量控形；侧平举肘微屈至肩高", img:"images/form-lateral.jpg"},
+  {id:"b_arms", name:"器械弯举 + 下压（超级组）", sets:"3×10–12", rest:"休息90秒", suggest:"弯举单边15；下压35（可略减）", cues:"同A手臂", img:"images/form-arms-ss.jpg"},
+  {id:"b_plank", name:"平板支撑或死虫", sets:"3×30–45秒", rest:"休息45秒", suggest:"自重", cues:"躯干一条线；髋不上不下", img:"images/form-plank.jpg"},
+  {id:"b_cardio", name:"课末有氧", sets:"15–20分钟", rest:"-", suggest:"-", cues:"同A", img:""}
+];
+
+const C = [
+  {id:"c_rdl", name:"罗马尼亚硬拉（史密斯/绳索RDL）", sets:"4×8–10", rest:"休息2分钟", suggest:"50–70 kg", cues:"髋铰链；背平；杠贴腿", img:"images/form-rdl.jpg"},
+  {id:"c_incline", name:"器械上斜胸推", sets:"3×8–10", rest:"休息2分钟", suggest:"35–50 kg（参考平推40.8）", cues:"同胸推：肩胛收、肘约45°", img:"images/form-chest.jpg"},
+  {id:"c_onerow", name:"单臂器械/绳索划船", sets:"3×10–12/侧", rest:"休息90秒", suggest:"20–30 kg/侧", cues:"躯干稳；拉至肋侧", img:"images/form-row.jpg"},
+  {id:"c_hip", name:"臀桥机或髋外展", sets:"3×10–12", rest:"休息90秒", suggest:"40–70 kg", cues:"顶峰夹臀（见图库同型器械）", img:""},
+  {id:"c_lateral", name:"绳索侧平举", sets:"3×12–15", rest:"休息60秒", suggest:"10–18 kg", cues:"肘微屈；举至肩高", img:"images/form-lateral.jpg"},
+  {id:"c_arms", name:"弯举 + 下压（超级组）", sets:"3×10–12", rest:"休息90秒", suggest:"弯举单边15；下压35", cues:"同A", img:"images/form-arms-ss.jpg"},
+  {id:"c_crunch", name:"绳索卷腹或悬垂屈膝", sets:"3×12–15", rest:"休息45秒", suggest:"卷腹可沿用50 kg", cues:"卷脊柱控形", img:"images/form-crunch.jpg"},
+  {id:"c_cardio", name:"课末有氧", sets:"15–20分钟", rest:"-", suggest:"-", cues:"同A", img:""}
+];
+
+const days = [
+  {date:"2026-11-03", dow:"一", type:"A", title:"A日力量", summary:"腿举·胸推·划船·腿弯·手臂SS·卷腹·有氧", exercises:A, withWarmup:true},
+  {date:"2026-11-04", dow:"二", type:"R", title:"休息 + 有氧", summary:"快走/椭圆 30–40分钟 · 步数1–1.2万", exercises:null, cardio:"快走或椭圆 30–40 分钟；步数目标 10000–12000"},
+  {date:"2026-11-05", dow:"三", type:"B", title:"B日力量", summary:"深蹲/腿举·高位下拉·肩推·腿伸·侧平+面拉·手臂·平板·有氧", exercises:B, withWarmup:true},
+  {date:"2026-11-06", dow:"四", type:"R", title:"休息 + 有氧", summary:"快走/椭圆 30–40分钟", exercises:null, cardio:"快走或椭圆 30–40 分钟；保持步数"},
+  {date:"2026-11-07", dow:"五", type:"C", title:"C日力量", summary:"RDL·上斜胸推·单臂划船·臀桥·侧平·手臂·卷腹·有氧", exercises:C, withWarmup:true},
+  {date:"2026-11-08", dow:"六", type:"R", title:"休息 + 有氧/步数", summary:"轻松有氧或步数达标", exercises:null, cardio:"轻松有氧 20–40 分钟，或保证步数 10000+"},
+  {date:"2026-11-09", dow:"日", type:"R", title:"休息 + 轻松走", summary:"散步恢复", exercises:null, cardio:"轻松走 20–30 分钟，充分恢复"}
+];
+
+function defaultState(){
+  const st = {days:{}};
+  days.forEach(d=>{
+    st.days[d.date] = {done:false, weight:"", cardioDone:false, exercises:{}};
+    if(d.withWarmup){
+      warmups.forEach((_,i)=>{ st.days[d.date].exercises["wu"+i] = {done:false, actual:""}; });
+    }
+    if(d.exercises){
+      d.exercises.forEach(ex=>{ st.days[d.date].exercises[ex.id] = {done:false, actual:""}; });
+    }
+  });
+  return st;
+}
+
+let state = loadState();
+
+function loadState(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(!raw) return defaultState();
+    const parsed = JSON.parse(raw);
+    const base = defaultState();
+    // merge
+    Object.keys(base.days).forEach(k=>{
+      if(parsed.days && parsed.days[k]){
+        base.days[k].done = !!parsed.days[k].done;
+        base.days[k].weight = parsed.days[k].weight || "";
+        base.days[k].cardioDone = !!parsed.days[k].cardioDone;
+        const ex = parsed.days[k].exercises || {};
+        Object.keys(base.days[k].exercises).forEach(eid=>{
+          if(ex[eid]){
+            base.days[k].exercises[eid].done = !!ex[eid].done;
+            base.days[k].exercises[eid].actual = ex[eid].actual || "";
+          }
+        });
+      }
+    });
+    return base;
+  }catch(e){
+    return defaultState();
+  }
+}
+
+function save(){
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  const el = document.getElementById("saveHint");
+  el.textContent = "已保存到本机 · " + new Date().toLocaleString("zh-CN", {hour12:false});
+  updateProgress();
+  renderOverviewWeights();
+}
+
+function esc(s){
+  return String(s).replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]));
+}
+
+function mealBlock(i){
+  const m = mealVariants[i%mealVariants.length];
+  return `
+  <div class="meals">
+    <div class="meal"><img src="images/meal-bf.jpg" alt="早餐示意"/><div class="b"><div class="t">早餐</div><div class="d">${esc(m.bf)}</div></div></div>
+    <div class="meal"><img src="images/meal-lunch.jpg" alt="午餐示意"/><div class="b"><div class="t">午餐</div><div class="d">${esc(m.lunch)}</div></div></div>
+    <div class="meal"><img src="images/meal-dinner.jpg" alt="晚餐示意"/><div class="b"><div class="t">晚餐</div><div class="d">${esc(m.dinner)}</div></div></div>
+    <div class="meal"><div class="b"><div class="t">加餐（可选）</div><div class="d">${esc(m.snack)}</div><div class="d" style="margin-top:6px">饮水：全天约 3–3.5 L；少油少糖酱料。</div></div></div>
+  </div>`;
+}
+
+function exCard(dayDate, ex){
+  const st = state.days[dayDate].exercises[ex.id] || {done:false, actual:""};
+  const img = ex.img ? `<img src="${esc(ex.img)}" alt="${esc(ex.name)} 姿势图" loading="lazy"/>` : `<p class="small">姿势：见图库同型器械 / 按注意事项执行</p>`;
+  return `<div class="ex ${st.done?"done":""}" data-ex="${esc(ex.id)}">
+    <div class="ex-head">
+      <input type="checkbox" ${st.done?"checked":""} onchange="toggleEx('${dayDate}','${ex.id}', this.checked)" />
+      <div style="flex:1">
+        <h4>${esc(ex.name)}</h4>
+        <div class="meta">${esc(ex.sets)} · ${esc(ex.rest||"")} · 建议：<strong>${esc(ex.suggest)}</strong></div>
+        <div class="cues">注意：${esc(ex.cues)}</div>
+        ${img}
+        <div class="inputs">
+          <label>实际重量 <input type="text" placeholder="如 50kg" value="${esc(st.actual)}" oninput="setActual('${dayDate}','${ex.id}', this.value)" /></label>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function render(){
+  const toc = document.getElementById("toc");
+  const daysEl = document.getElementById("days");
+  const obody = document.querySelector("#overview tbody");
+  toc.innerHTML = "";
+  daysEl.innerHTML = "";
+  obody.innerHTML = "";
+
+  days.forEach((d, idx)=>{
+    const id = "day-"+d.date;
+    toc.innerHTML += `<a href="#${id}">${d.dow} ${d.type==="R"?"休":d.type}</a>`;
+    const badge = d.type==="R" ? "R" : d.type;
+    const mealSummary = "三餐模板+轮换 · ~1900kcal";
+    const st = state.days[d.date];
+    obody.innerHTML += `<tr>
+      <td><a href="#${id}">${d.date.slice(5)} 周${d.dow}</a></td>
+      <td><span class="badge ${badge}">${esc(d.title)}</span></td>
+      <td>${mealSummary}</td>
+      <td>${esc(d.summary)}</td>
+      <td><input type="checkbox" ${st.done?"checked":""} onchange="toggleDay('${d.date}', this.checked)"/></td>
+      <td><input type="number" step="0.1" style="width:72px" value="${esc(st.weight)}" oninput="setWeight('${d.date}', this.value)" placeholder="kg"/></td>
+    </tr>`;
+
+    let body = `<div class="card day" id="${id}">
+      <h2><span class="badge ${badge}">周${d.dow}</span> ${d.date} · ${esc(d.title)}</h2>
+      <h3>饮食</h3>
+      ${mealBlock(idx)}
+      <h3>训练 / 活动</h3>`;
+
+    if(d.type==="R"){
+      body += `<div class="ex">
+        <div class="ex-head">
+          <input type="checkbox" ${st.cardioDone?"checked":""} onchange="toggleCardio('${d.date}', this.checked)"/>
+          <div><h4>${esc(d.cardio)}</h4>
+          <div class="meta">休息日以恢复为主，睡眠优先。</div></div>
+        </div>
+      </div>`;
+    } else {
+      if(d.withWarmup){
+        warmups.forEach((w,i)=>{
+          const wu = {id:"wu"+i, name:w.name, sets:w.sets, rest:"", suggest:w.suggest, cues:w.cues, img:w.img};
+          body += exCard(d.date, wu);
+        });
+      }
+      d.exercises.forEach(ex=>{ body += exCard(d.date, ex); });
+    }
+
+    body += `<div class="daydone">
+      <label><input type="checkbox" ${st.done?"checked":""} onchange="toggleDay('${d.date}', this.checked)"/> 本日全部完成</label>
+      <label>当日体重 kg <input type="number" step="0.1" value="${esc(st.weight)}" oninput="setWeight('${d.date}', this.value)" placeholder="例如 90.5"/></label>
+    </div></div>`;
+    daysEl.innerHTML += body;
+  });
+  updateProgress();
+}
+
+function toggleEx(date, id, val){
+  state.days[date].exercises[id].done = val;
+  save();
+  const card = document.querySelector(`#day-${date} .ex[data-ex="${id}"]`);
+  if(card) card.classList.toggle("done", val);
+}
+function setActual(date, id, val){
+  state.days[date].exercises[id].actual = val;
+  save();
+}
+function toggleDay(date, val){
+  state.days[date].done = val;
+  save();
+  // sync checkboxes
+  document.querySelectorAll(`#day-${date} .daydone input[type=checkbox]`).forEach(el=>{ el.checked = val; });
+  renderOverviewWeights();
+}
+function toggleCardio(date, val){
+  state.days[date].cardioDone = val;
+  save();
+}
+function setWeight(date, val){
+  state.days[date].weight = val;
+  save();
+}
+function renderOverviewWeights(){
+  // re-render overview checkboxes/weights lightly by full render is heavy; update progress only
+  // For simplicity after weight changes from day section, update overview inputs if present
+  days.forEach(d=>{
+    const rowInputs = document.querySelectorAll(`#overview tbody tr`);
+    // skip heavy sync; next full open will load
+  });
+}
+
+function updateProgress(){
+  let total=0, done=0;
+  days.forEach(d=>{
+    total += 1;
+    if(state.days[d.date].done) done += 1;
+  });
+  document.getElementById("progressText").textContent = `本周完成 ${done}/${total} 天`;
+}
+
+function exportJson(){
+  const blob = {
+    key: STORAGE_KEY,
+    exported_at: new Date().toISOString(),
+    week: "2026-11-03 to 2026-11-09",
+    state
+  };
+  const text = JSON.stringify(blob, null, 2);
+  const ta = document.createElement("textarea");
+  ta.value = text;
+  document.body.appendChild(ta);
+  ta.select();
+  try{ document.execCommand("copy"); }catch(e){}
+  document.body.removeChild(ta);
+  // also download
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([text], {type:"application/json"}));
+  a.download = "fitness-week-2026-11-03-export.json";
+  a.click();
+  alert("已尝试复制到剪贴板，并下载 JSON 文件。可把文件内容贴回教练聊天。");
+}
+
+function importJson(){
+  const text = prompt("粘贴之前导出的 JSON：");
+  if(!text) return;
+  try{
+    const obj = JSON.parse(text);
+    const incoming = obj.state || obj;
+    if(!incoming.days) throw new Error("格式不对");
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(incoming));
+    state = loadState();
+    render();
+    save();
+    alert("导入成功");
+  }catch(e){
+    alert("导入失败：" + e.message);
+  }
+}
+
+function resetData(){
+  if(!confirm("确定清空本周所有勾选与重量记录？")) return;
+  localStorage.removeItem(STORAGE_KEY);
+  state = defaultState();
+  render();
+  document.getElementById("saveHint").textContent = "已清空";
+  updateProgress();
+}
+
+render();
+</script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('./sw.js').catch(function (e) {
+      console.warn('SW register failed', e);
+    });
+  });
+}
+</script>
+</body>
+</html>
