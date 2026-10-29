@@ -181,7 +181,7 @@ footer{margin-top:28px;color:var(--muted);font-size:12px;text-align:center;line-
       <span>碳水<strong>150–160 <small>g</small></strong></span>
     </div>
     <p class="session-note">力量 A → B → C · 单次 60–90 分钟 · 其余日恢复与有氧</p>
-    <details class="setup"><summary>原计划目标</summary><p>目标：12周减约30斤；本周力量 A→B→C（一/三/五），其余休息+有氧。</p></details>
+    <details class="setup"><summary>原计划目标</summary><p>目标：12周减约30斤；本周力量 A→B→C（11/03、11/05、11/07），其余休息+有氧。</p></details>
   </header>
 
   <section class="card" aria-labelledby="nav-title">
@@ -354,14 +354,18 @@ const C = [
 ];
 
 const days = [
-  {date:"2026-11-03", dow:"一", type:"A", title:"A日力量", summary:"腿举·胸推·划船·腿弯·手臂SS·卷腹·有氧", exercises:A, withWarmup:true},
-  {date:"2026-11-04", dow:"二", type:"R", title:"休息 + 有氧", summary:"快走/椭圆 30–40分钟 · 步数1–1.2万", exercises:null, cardio:"快走或椭圆 30–40 分钟；步数目标 10000–12000"},
-  {date:"2026-11-05", dow:"三", type:"B", title:"B日力量", summary:"深蹲/腿举·高位下拉·肩推·腿伸·侧平+面拉·手臂·平板·有氧", exercises:B, withWarmup:true},
-  {date:"2026-11-06", dow:"四", type:"R", title:"休息 + 有氧", summary:"快走/椭圆 30–40分钟", exercises:null, cardio:"快走或椭圆 30–40 分钟；保持步数"},
-  {date:"2026-11-07", dow:"五", type:"C", title:"C日力量", summary:"RDL·上斜胸推·单臂划船·臀桥·侧平·手臂·卷腹·有氧", exercises:C, withWarmup:true},
-  {date:"2026-11-08", dow:"六", type:"R", title:"休息 + 有氧/步数", summary:"轻松有氧或步数达标", exercises:null, cardio:"轻松有氧 20–40 分钟，或保证步数 10000+"},
-  {date:"2026-11-09", dow:"日", type:"R", title:"休息 + 轻松走", summary:"散步恢复", exercises:null, cardio:"轻松走 20–30 分钟，充分恢复"}
-];
+  {date:"2026-11-03", type:"A", title:"A日力量", summary:"腿举·胸推·划船·腿弯·手臂SS·卷腹·有氧", exercises:A, withWarmup:true},
+  {date:"2026-11-04", type:"R", title:"休息 + 有氧", summary:"快走/椭圆 30–40分钟 · 步数1–1.2万", exercises:null, cardio:"快走或椭圆 30–40 分钟；步数目标 10000–12000"},
+  {date:"2026-11-05", type:"B", title:"B日力量", summary:"深蹲/腿举·高位下拉·肩推·腿伸·侧平+面拉·手臂·平板·有氧", exercises:B, withWarmup:true},
+  {date:"2026-11-06", type:"R", title:"休息 + 有氧", summary:"快走/椭圆 30–40分钟", exercises:null, cardio:"快走或椭圆 30–40 分钟；保持步数"},
+  {date:"2026-11-07", type:"C", title:"C日力量", summary:"RDL·上斜胸推·单臂划船·臀桥·侧平·手臂·卷腹·有氧", exercises:C, withWarmup:true},
+  {date:"2026-11-08", type:"R", title:"休息 + 有氧/步数", summary:"轻松有氧或步数达标", exercises:null, cardio:"轻松有氧 20–40 分钟，或保证步数 10000+"},
+  {date:"2026-11-09", type:"R", title:"休息 + 轻松走", summary:"散步恢复", exercises:null, cardio:"轻松走 20–30 分钟，充分恢复"}
+].map(day => ({
+  ...day,
+  // Plan dates are calendar dates, independent of the device's local timezone.
+  dow: "日一二三四五六"[new Date(day.date + "T00:00:00Z").getUTCDay()]
+}));
 
 const EX_NAMES = {};
 warmups.forEach((w,i)=>{ EX_NAMES["wu"+i] = w.name; });
@@ -482,9 +486,11 @@ function loadState(){
   }
 }
 
-function save(){
-  state.weeks[state.weekKey] = {days: JSON.parse(JSON.stringify(state.days))};
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+function save(nextState = state){
+  nextState.weeks[nextState.weekKey] = {days: JSON.parse(JSON.stringify(nextState.days))};
+  // Persist first: a failed write must not discard the previous in-memory state.
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(nextState));
+  state = nextState;
   const el = document.getElementById("saveHint");
   el.textContent = "已保存到本机 · " + new Date().toLocaleString("zh-CN", {hour12:false});
   updateProgress();
@@ -514,17 +520,26 @@ function buildPayload(){
 
 function scheduleSync(){
   setSyncHint("同步：改动已记下，约 1–2 秒后上传…");
-  if(syncTimer) clearTimeout(syncTimer);
+  if(syncTimer){ clearTimeout(syncTimer); syncTimer=null; }
+  if(syncInFlight){
+    syncQueued = true;
+    setSyncHint("同步：有新改动，等待当前上传结束后上传最新记录…");
+    return;
+  }
   syncTimer = setTimeout(()=>{ syncTimer=null; syncRemote(); }, SYNC.debounceMs);
 }
 
 function syncNow(){
   if(syncTimer){ clearTimeout(syncTimer); syncTimer=null; }
-  syncRemote();
+  return syncRemote();
 }
 
 async function syncRemote(){
-  if(syncInFlight){ syncQueued = true; return; }
+  if(syncInFlight){
+    syncQueued = true;
+    setSyncHint("同步：等待当前上传结束后上传最新记录…");
+    return;
+  }
   syncInFlight = true;
   setSyncHint("同步：上传中…");
   const payload = buildPayload();
@@ -538,13 +553,15 @@ async function syncRemote(){
       body: JSON.stringify(payload)
     });
     if(!res.ok) throw new Error("HTTP " + res.status);
-    setSyncHint("同步：已上传给教练 · " + new Date().toLocaleString("zh-CN", {hour12:false}), true);
+    // An old upload is not confirmation that newer edits (including reset) synced.
+    if(!syncQueued) setSyncHint("同步：已上传给教练 · " + new Date().toLocaleString("zh-CN", {hour12:false}), true);
   }catch(e){
     console.warn("sync failed", e);
     setSyncHint("同步失败（本机已保存，可点「立即同步」重试）· " + (e && e.message ? e.message : e), false);
   }finally{
     syncInFlight = false;
-    if(syncQueued){ syncQueued=false; scheduleSync(); }
+    // Serialize PUTs: the latest snapshot must be sent after any older request.
+    if(syncQueued){ syncQueued=false; return syncRemote(); }
   }
 }
 
@@ -608,7 +625,7 @@ function render(){
     </div>`;
 
     let body = `<div class="card day" id="${id}">
-      <div class="day-header"><div class="day-index"><span>${d.date.slice(5,7)} 月</span><strong>${d.date.slice(8)}</strong></div><div><h2>${esc(d.title)}</h2><p>${d.date} · <span class="badge ${badge}">${d.type==="R"?"恢复日":"力量 "+d.type}</span></p></div></div>
+      <div class="day-header"><div class="day-index"><span>${d.date.slice(5,7)} 月</span><strong>${d.date.slice(8)}</strong></div><div><h2>${esc(d.title)}</h2><p>${d.date} 周${d.dow} · <span class="badge ${badge}">${d.type==="R"?"恢复日":"力量 "+d.type}</span></p></div></div>
       <h3>饮食</h3>
       ${mealBlock(idx)}
       <h3>训练 / 活动</h3>`;
@@ -847,16 +864,25 @@ function importJson(){
 }
 
 function resetData(){
-  if(!confirm("确定清空本周所有勾选与重量记录？（历史周与长期记录保留）")) return;
-  const weekDates = days.map(d=>d.date);
-  const fresh = defaultState();
-  state.days = fresh.days;
-  state.weightLog = state.weightLog.filter(e=>!weekDates.includes(e.date));
-  state.liftLog = state.liftLog.filter(e=>!weekDates.includes(e.date));
-  save();
+  if(!confirm("确定清空本周所有勾选、训练重量与体重记录，并同步给教练？其它周历史记录保留。")) return;
+  const weekDates = new Set(days.map(d=>d.date));
+  const cleared = {
+    ...state,
+    days: defaultState().days,
+    weeks: {...state.weeks},
+    weightLog: state.weightLog.filter(e=>!weekDates.has(e.date)),
+    liftLog: state.liftLog.filter(e=>!weekDates.has(e.date))
+  };
+  try{
+    // Keep the empty week under the same key so reopening retries it too.
+    save(cleared);
+  }catch(e){
+    document.getElementById("saveHint").textContent = "清空失败：无法保存到本机，请重试；原记录保留。";
+    return;
+  }
   render();
-  document.getElementById("saveHint").textContent = "已清空本周";
-  updateProgress();
+  document.getElementById("saveHint").textContent = "本机已清空本周 · 清空结果将同步给教练";
+  syncNow();
 }
 
 render();
