@@ -1,4 +1,4 @@
-const CACHE = 'fitness-week-2026-11-03-v5-stats';
+const CACHE = 'fitness-week-2026-11-03-v7-records-keyboard';
 const ASSETS = [
   './',
   './index.html',

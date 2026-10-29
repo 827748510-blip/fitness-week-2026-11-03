@@ -4,7 +4,37 @@
 
 Safari 添加到主屏幕：打开链接 → 分享 →「添加到主屏幕」。
 
-本地键：`fitness-week-2026-11-03`（localStorage）。勾选 / 重量 / 体重自动防抖同步，无需导出 JSON。
+本地键：`fitness-tracker-v2`（localStorage），兼容迁移旧键 `fitness-week-2026-11-03`。勾选 / 重量 / 体重自动防抖同步，无需导出 JSON。
+
+清空本周记录会先保存本机状态，再同步给教练，保留其它周归档及其体重、力量记录。若当前有上传，清空后的状态会在它结束后上传；失败可点「立即同步」重试，重新打开也会补传本机状态。
+
+重量统计仅接受单个非负十进制数及可选 `kg`、`公斤`、`千克` 单位，例如 `50kg`、`12.5 公斤`。含组次、范围、其它单位或自由备注的实际重量保留原文，不生成统计数值；不会自动更改已存 v2 数值记录。图片可用 Enter / 空格打开，Esc 或关闭按钮退出并返回触发图片。
+
+## 本地验证（离线模拟）
+
+这是静态 PWA，无依赖安装或编译步骤。不要用 `scripts/pull-synced.sh` 测试：它会访问实时记录并写入远端镜像。
+
+```bash
+node --test tests/*.test.cjs
+```
+
+测试直接执行页面脚本，使用虚拟 DOM、本机存储、计时器与 fetch；不接触真实记录或网络。覆盖清空/取消、旧防抖、失败与重试、重开补传、上传排队、保存失败、历史保留、重量解析与迁移、灯箱键盘/焦点和全部 7 天标签（含 5 个时区）。
+
+可选浏览器验证需本机已有 `playwright-cli` 和 Chrome；在独立终端启动本地服务，再运行：
+
+```bash
+python3 -m http.server 18741 --bind 127.0.0.1
+# 另一终端：
+mkdir -p output/playwright
+playwright-cli -s=fitness-reset-test open about:blank --browser chrome
+playwright-cli -s=fitness-reset-test run-code --filename tests/browser-smoke.js
+playwright-cli -s=fitness-reset-test eval '() => globalThis.fitnessSmokeReport'
+playwright-cli -s=fitness-reset-test close
+```
+
+浏览器脚本创建独立临时上下文、禁用 Service Worker，在导航前拦截全部外部请求，仅向模拟同步端写入人工测试数据。截图位于 `output/playwright/`。不要把验证脚本改成访问线上页面或真实同步服务。
+
+上传顺序保证限于当前页面生命周期；现有远端接口是无版本条件的整份 PUT，跨设备/跨标签页并发或页面关闭时已发送但未确认的请求，仍需服务端版本控制才能保证全局顺序。本次保持原认证与载荷协议。
 
 ## Bot 如何读取最新数据
 
