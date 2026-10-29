@@ -13,14 +13,23 @@ function createApp({storage = new Map(), confirm = true} = {}) {
   const elements = new Map();
   const timers = new Map();
   const requests = [];
+  const listeners = new Map();
   let timerId = 0;
   let storageFails = false;
   function element(id) {
-    if (!elements.has(id)) elements.set(id, {
-      innerHTML: '', textContent: '', style: {},
-      classList: {add() {}, remove() {}, toggle() {}, contains() { return false; }},
-      focus() {}
-    });
+    if (!elements.has(id)) {
+      const classes = new Set();
+      const el = {
+        innerHTML: '', textContent: '', style: {}, isConnected:true,
+        classList: {
+          add: name => classes.add(name), remove: name => classes.delete(name),
+          toggle(name, enabled) { if(enabled) classes.add(name); else classes.delete(name); },
+          contains: name => classes.has(name)
+        },
+        focus() { sandbox.document.activeElement = el; }
+      };
+      elements.set(id, el);
+    }
     return elements.get(id);
   }
   const sandbox = {
@@ -28,7 +37,10 @@ function createApp({storage = new Map(), confirm = true} = {}) {
     document: {
       getElementById: element,
       querySelectorAll() { return []; },
-      addEventListener() {},
+      addEventListener(type, handler) {
+        if (!listeners.has(type)) listeners.set(type, []);
+        listeners.get(type).push(handler);
+      },
       body: {style: {}}
     },
     localStorage: {
@@ -63,6 +75,13 @@ function createApp({storage = new Map(), confirm = true} = {}) {
     run: code => vm.runInContext(code, context),
     json: code => JSON.parse(vm.runInContext(`JSON.stringify(${code})`, context)),
     failStorage: value => { storageFails = value; },
+    element,
+    activeElement: () => sandbox.document.activeElement,
+    dispatch(type, event) {
+      const value = {defaultPrevented:false, preventDefault() { this.defaultPrevented = true; }, ...event};
+      for (const handler of listeners.get(type) || []) handler(value);
+      return value;
+    },
     tick() {
       const ready = [...timers.values()]; timers.clear();
       ready.forEach(callback => callback());

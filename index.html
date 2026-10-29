@@ -229,6 +229,7 @@ footer{margin-top:28px;color:var(--muted);font-size:12px;text-align:center;line-
     </section>
     <section class="card" aria-labelledby="stat-lift-title">
       <div class="section-heading"><h2 id="stat-lift-title">主要力量项目</h2><span class="small">最近 5 次记录</span></div>
+      <p class="small">单个重量（如 50 或 50kg）计入统计；组次、范围等备注仅保留原文。</p>
       <div id="liftBox"></div>
     </section>
   </div><!-- /tab-stats -->
@@ -391,9 +392,11 @@ let state = loadState();
 const lightbox = document.getElementById("lightbox");
 const lightboxImg = document.getElementById("lightboxImg");
 let lightboxPrevOverflow = "";
+let lightboxTrigger = null;
 
 function openLightbox(img){
-  if(!img || !img.src) return;
+  if(!img || !img.src || lightbox.classList.contains("open")) return;
+  lightboxTrigger = img;
   lightboxImg.src = img.src;
   lightboxImg.alt = img.alt || "";
   lightboxPrevOverflow = document.body.style.overflow;
@@ -407,6 +410,8 @@ function closeLightbox(){
   lightbox.classList.remove("open");
   lightboxImg.src = "";
   document.body.style.overflow = lightboxPrevOverflow;
+  if(lightboxTrigger && lightboxTrigger.isConnected) lightboxTrigger.focus({preventScroll:true});
+  lightboxTrigger = null;
 }
 document.addEventListener("click", (e)=>{
   const zoomable = e.target.closest && e.target.closest("#days img.zoomable");
@@ -414,8 +419,23 @@ document.addEventListener("click", (e)=>{
   if(e.target.closest && e.target.closest("#lightbox")) closeLightbox();
 });
 document.addEventListener("keydown", (e)=>{
-  if(e.key !== "Escape") return;
-  if(lightbox.classList.contains("open")) closeLightbox();
+  if(lightbox.classList.contains("open")){
+    if(e.key === "Escape"){
+      e.preventDefault();
+      closeLightbox();
+    }else if(e.key === "Tab"){
+      // The close button is the dialog's only focusable control.
+      e.preventDefault();
+      document.getElementById("lightboxClose").focus();
+    }
+    return;
+  }
+  if(e.key !== "Enter" && e.key !== " ") return;
+  const zoomable = e.target.closest && e.target.closest("#days img.zoomable");
+  if(zoomable){
+    e.preventDefault();
+    if(!e.repeat) openLightbox(zoomable);
+  }
 });
 
 function mergeDaysInto(baseDays, parsedDays){
@@ -436,10 +456,13 @@ function mergeDaysInto(baseDays, parsedDays){
 }
 
 function parseNumKg(v){
-  const s = String(v == null ? "" : v).replace(/[^0-9.]/g, "");
-  if(!s) return null;
-  const n = parseFloat(s);
-  return isFinite(n) ? n : null;
+  if(typeof v !== "string" && typeof v !== "number") return null;
+  const s = String(v == null ? "" : v).trim();
+  // Only a single nonnegative decimal, optionally with a kg unit. Keep free
+  // text in the training record, but never concatenate reps/ranges into kg.
+  if(!/^(?:\d+(?:\.\d+)?|\.\d+)\s*(?:kg|公斤|千克)?$/i.test(s)) return null;
+  const n = Number(s.replace(/\s*(?:kg|公斤|千克)$/i, ""));
+  return Number.isFinite(n) ? n : null;
 }
 
 function migrateV1(parsed){
