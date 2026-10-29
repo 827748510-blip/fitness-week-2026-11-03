@@ -1,9 +1,10 @@
 {
   "key": "fitness-week-2026-11-03",
-  "updated_at": "2026-10-29T13:23:34Z",
-  "source": "init",
+  "updated_at": "2026-10-29T13:25:30Z",
+  "source": "init-clean",
   "week": "2026-11-03 to 2026-11-09",
   "state": {
     "days": {}
-  }
+  },
+  "mirrored_at": "2026-10-29T13:25:28Z"
 }
