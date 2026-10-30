@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<meta name="theme-color" content="#0f766e" />
+<meta name="fitness-release" content="2026-10-30-gallery-v12" />
+<meta name="theme-color" content="#111416" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="apple-mobile-web-app-title" content="健身周计划" />
@@ -23,7 +24,7 @@
 }
 *{box-sizing:border-box}
 html{scroll-padding-top:20px}
-body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink);line-height:1.65;-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Avenir Next","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink);line-height:1.65;-webkit-text-size-adjust:100%}
 a{color:var(--accent2);text-underline-offset:4px}
 button,input{font:inherit}
 button,a,input,label{-webkit-tap-highlight-color:rgba(15,118,110,.12)}
@@ -161,19 +162,29 @@ footer{margin-top:28px;color:var(--muted);font-size:12px;text-align:center;line-
 @media(max-width:359px){.wrap{padding-left:12px;padding-right:12px}.card{padding:16px}.toc{gap:4px}.toc a{border-radius:9px}.ex{padding:10px}.ex-head{gap:4px}.stickybar button{padding:10px}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
 </style>
+<link rel="stylesheet" href="stage.css" />
+<link rel="stylesheet" href="workspace.css" />
+<link rel="stylesheet" href="references.css" />
 </head>
 <body>
 <div class="wrap">
   <nav class="tabs" aria-label="页面切换">
+    <div class="brand"><svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><rect x="2" y="2" width="28" height="28" rx="10" fill="#f3b66f"/><path d="M9 16h14M8 12v8m4-10v12m8-12v12m4-10v8" stroke="#1a211a" stroke-width="2.4" stroke-linecap="round"/></svg><span>练习日常</span></div>
     <button type="button" class="tab active" id="tabBtn-week" onclick="switchTab('week')">本周</button>
     <button type="button" class="tab" id="tabBtn-stats" onclick="switchTab('stats')">统计</button>
+    <button type="button" id="motionSetting" class="motion-setting" aria-pressed="false" onclick="window.TrainingStage && window.TrainingStage.toggleMotion()">减少动态：关</button>
   </nav>
   <div id="tab-week">
   <header class="hero">
-    <div class="eyebrow">训练 · 饮食 · 记录</div>
+    <div class="hero-copy">
+    <div class="eyebrow">YOUR LITTLE TRAINING STUDIO</div>
     <h1>健身周计划</h1>
+    <div class="hero-tagline">和小伙伴，一起变强。</div>
     <p class="week-range">11 月 03 日 — 11 月 09 日 <span class="small">/ 2026</span></p>
-    <p>一周训练 + 饮食计划 · 器械优先 · 上海时区</p>
+    <p class="hero-intro">用小人看懂动作，用记录留下进步。<br/>今天也按自己的节奏，好好练一次。</p>
+    <div class="hero-actions"><a class="start-link" href="#day-2026-11-03">进入本周训练 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a><a class="text-link" href="#guide-preview">体验动作引导 ↘</a></div>
+    </div>
+    <div class="hero-scene" id="heroScene"></div>
     <div class="macros" aria-label="每日饮食目标">
       <span>每日热量<strong>≈ 1900 <small>kcal</small></strong></span>
       <span>蛋白质<strong>200 <small>g</small></strong></span>
@@ -183,6 +194,12 @@ footer{margin-top:28px;color:var(--muted);font-size:12px;text-align:center;line-
     <p class="session-note">力量 A → B → C · 单次 60–90 分钟 · 其余日恢复与有氧</p>
     <details class="setup"><summary>原计划目标</summary><p>目标：12周减约30斤；本周力量 A→B→C（11/03、11/05、11/07），其余休息+有氧。</p></details>
   </header>
+
+  <section class="weekly-feedback" id="weeklyFeedback" aria-label="本周训练反馈">
+    <div class="weekly-mark" aria-hidden="true"></div>
+    <div><h2 data-week-title>每次完成，都算成长</h2><p data-week-message>从一次认真完成开始，伙伴陪你一起练。</p><div class="week-dots" role="img" aria-label="本周尚未确认完成"></div></div>
+    <div class="weekly-number"><span data-week-number>0</span><small> / 7 天</small></div>
+  </section>
 
   <section class="card" aria-labelledby="nav-title">
     <div class="section-heading"><h2 id="nav-title">本周安排</h2><span class="small">点选日期，跳转计划</span></div>
@@ -211,6 +228,7 @@ footer{margin-top:28px;color:var(--muted);font-size:12px;text-align:center;line-
     </div>
   </section>
 
+  <section class="card demo-intro" id="guide-preview" aria-labelledby="guide-preview-title"><div class="section-heading"><h2 id="guide-preview-title">动作小剧场</h2><span class="small">3 个动作先体验</span></div><p class="small">坐姿绳索划船、器械胸推、单臂绳索侧平举已有可编程示范。其余动作保留原图。点开动作卡，用播放、慢放或分步熟悉动作；完成后仍由你亲手确认。</p><div class="toolbar"><a class="btn" href="#motion-a_row">坐姿划船 ↗</a><a class="btn" href="#motion-a_chest">器械胸推 ↗</a><a class="btn" href="#motion-c_lateral">绳索侧平举 ↗</a></div><p class="small">示意不代替现场指导。按实际器械调整座位与行程，出现疼痛先停止。</p></section>
   <div id="days"></div>
 
   <footer>
@@ -219,6 +237,7 @@ footer{margin-top:28px;color:var(--muted);font-size:12px;text-align:center;line-
   </div><!-- /tab-week -->
 
   <div id="tab-stats" hidden>
+    <header class="stats-intro"><div class="eyebrow">YOUR OWN PACE</div><h1>进步，有迹可循。</h1><p>每次手动确认、每笔实际记录，都是伙伴成长的依据。照顾恢复，也是一部分。</p></header>
     <section class="card" aria-labelledby="stat-weight-title">
       <div class="section-heading"><h2 id="stat-weight-title">体重趋势</h2><span class="small" id="weightStatText"></span></div>
       <div id="weightChart"></div>
@@ -250,6 +269,10 @@ footer{margin-top:28px;color:var(--muted);font-size:12px;text-align:center;line-
   <button type="button" id="lightboxClose" aria-label="关闭图片预览">关闭 ✕</button>
 </div>
 
+<script src="toy-renderer.js"></script>
+<script src="stage.js"></script>
+<script src="reference-data.js"></script>
+<script src="references.js"></script>
 <script>
 const STORAGE_KEY = "fitness-tracker-v2";
 const OLD_STORAGE_KEY = "fitness-week-2026-11-03";
@@ -258,13 +281,13 @@ const WEEK_KEY = "2026-11-03";
 /* Auto-sync to coach (no export step).
    Write target: jstash public bin with a bin-scoped edit_token (NOT a GitHub PAT).
    Risk: anyone who reads page source can overwrite this fitness log only.
-   Bot reads: https://j.jstash.app/9UOvxv7LGyOynCF0eRzE5Q
+   Bot reads: https://j.jstash.app/REDACTED_BIN_ID
             + gist/repo mirrors via GitHub Actions.
 */
 const SYNC = {
-  putUrl: "https://api.jstash.app/v1/bins/9UOvxv7LGyOynCF0eRzE5Q",
-  readUrl: "https://j.jstash.app/9UOvxv7LGyOynCF0eRzE5Q",
-  editToken: "js_edit_AoIR38RH1Gqa5zAcsvJvIai2al_kcmvuMpHFxdcK1dA",
+  putUrl: "https://sync.invalid/cloud-write-disabled",
+  readUrl: "https://sync.invalid/cloud-read-disabled",
+  editToken: "REDACTED_NO_SYNC_CREDENTIAL",
   debounceMs: 1500
 };
 let syncTimer = null;
@@ -397,7 +420,7 @@ let lightboxTrigger = null;
 function openLightbox(img){
   if(!img || !img.src || lightbox.classList.contains("open")) return;
   lightboxTrigger = img;
-  lightboxImg.src = img.src;
+  lightboxImg.src = img.dataset?.fullSrc || img.src;
   lightboxImg.alt = img.alt || "";
   lightboxPrevOverflow = document.body.style.overflow;
   document.body.style.overflow = "hidden";
@@ -414,9 +437,9 @@ function closeLightbox(){
   lightboxTrigger = null;
 }
 document.addEventListener("click", (e)=>{
-  const zoomable = e.target.closest && e.target.closest("#days img.zoomable");
+  const zoomable = e.target.closest && (e.target.closest("#days img.zoomable") || e.target.closest("#trainingWorkspace img.zoomable") || e.target.closest("#referenceLibrary img.zoomable"));
   if(zoomable){ openLightbox(zoomable); return; }
-  if(e.target.closest && e.target.closest("#lightbox")) closeLightbox();
+  if(e.target.closest && e.target.closest("#lightbox") && !e.target.closest("[data-reference-zoom]") && !e.target.closest("#lightboxImg")) closeLightbox();
 });
 document.addEventListener("keydown", (e)=>{
   if(lightbox.classList.contains("open")){
@@ -431,7 +454,7 @@ document.addEventListener("keydown", (e)=>{
     return;
   }
   if(e.key !== "Enter" && e.key !== " ") return;
-  const zoomable = e.target.closest && e.target.closest("#days img.zoomable");
+  const zoomable = e.target.closest && (e.target.closest("#days img.zoomable") || e.target.closest("#trainingWorkspace img.zoomable") || e.target.closest("#referenceLibrary img.zoomable"));
   if(zoomable){
     e.preventDefault();
     if(!e.repeat) openLightbox(zoomable);
@@ -520,6 +543,7 @@ function save(nextState = state){
   renderOverviewWeights();
   if(!document.getElementById("tab-stats").hidden) renderStats();
   scheduleSync();
+  if(window.TrainingWorkspace) window.TrainingWorkspace.onRecordsChanged();
 }
 
 function setSyncHint(msg, ok){
@@ -606,14 +630,16 @@ function mealBlock(i){
 function exCard(dayDate, ex){
   const st = state.days[dayDate].exercises[ex.id] || {done:false, actual:""};
   const img = ex.img ? `<img class="zoomable" role="button" tabindex="0" aria-label="放大查看：${esc(ex.name)} 姿势图" src="${esc(ex.img)}" alt="${esc(ex.name)} 姿势图" loading="lazy"/>` : `<p class="small">姿势：见图库同型器械 / 按注意事项执行</p>`;
-  return `<div class="ex ${st.done?"done":""}" data-ex="${esc(ex.id)}">
+  const guide = window.TrainingReferences && window.TrainingReferences.card(ex,true);
+  const visual = guide || `<details class="static-guide"><summary>查看原姿势参考 · 暂无动画</summary>${img}</details>`;
+  return `<div class="ex ${st.done?"done":""}" data-ex="${esc(ex.id)}" ${guide ? `id="motion-${esc(ex.id)}"` : ""}>
     <div class="ex-head">
       <input type="checkbox" aria-label="完成：${esc(ex.name)}" ${st.done?"checked":""} onchange="toggleEx('${dayDate}','${ex.id}', this.checked)" />
       <div class="ex-content">
         <h4>${esc(ex.name)}</h4>
         <div class="meta">${esc(ex.sets)} · ${esc(ex.rest||"")} · 建议：<strong>${esc(ex.suggest)}</strong></div>
         <div class="cues">注意：${esc(ex.cues)}</div>
-        ${img}
+        ${visual}
         <div class="inputs">
           <label>实际重量 <input type="text" placeholder="如 50kg" value="${esc(st.actual)}" oninput="setActual('${dayDate}','${ex.id}', this.value)" /></label>
         </div>
@@ -678,6 +704,9 @@ function render(){
     daysEl.innerHTML += body;
   });
   updateProgress();
+  if(window.TrainingStage) window.TrainingStage.mount();
+  if(window.TrainingReferences) window.TrainingReferences.mount();
+  if(window.TrainingWorkspace) window.TrainingWorkspace.render(true);
 }
 
 function toggleEx(date, id, val){
@@ -686,18 +715,34 @@ function toggleEx(date, id, val){
   const card = document.querySelector(`#day-${date} .ex[data-ex="${id}"]`);
   if(card) card.classList.toggle("done", val);
 }
-function setActual(date, id, val){
-  state.days[date].exercises[id].actual = val;
+function updateActual(nextState, date, id, val){
+  nextState.days[date].exercises[id].actual = val;
   const n = parseNumKg(val);
-  const idx = state.liftLog.findIndex(e=>e.date===date && e.exerciseId===id);
+  const idx = nextState.liftLog.findIndex(e=>e.date===date && e.exerciseId===id);
   if(n == null){
-    if(idx >= 0) state.liftLog.splice(idx, 1);
+    if(idx >= 0) nextState.liftLog.splice(idx, 1);
   } else if(idx >= 0){
-    state.liftLog[idx].kg = n;
+    nextState.liftLog[idx].kg = n;
   } else {
-    state.liftLog.push({date:date, exerciseId:id, name:EX_NAMES[id] || id, kg:n});
+    nextState.liftLog.push({date:date, exerciseId:id, name:EX_NAMES[id] || id, kg:n});
   }
-  save();
+}
+function setActual(date, id, val){
+  const nextState = JSON.parse(JSON.stringify(state));
+  updateActual(nextState, date, id, val);
+  save(nextState);
+}
+function prepareExerciseSet(date, id, actual, completed){
+  const nextState = JSON.parse(JSON.stringify(state));
+  if(actual !== null) updateActual(nextState, date, id, actual);
+  if(typeof completed === 'boolean') nextState.days[date].exercises[id].done = completed;
+  nextState.weeks[nextState.weekKey] = {days: JSON.parse(JSON.stringify(nextState.days))};
+  return nextState;
+}
+function saveExerciseSet(date, id, actual, completed){
+  save(prepareExerciseSet(date, id, actual, completed));
+  const card = document.querySelector(`#day-${date} .ex[data-ex="${id}"]`);
+  if(card) card.classList.toggle('done', state.days[date].exercises[id].done);
 }
 function toggleDay(date, val){
   state.days[date].done = val;
@@ -740,10 +785,12 @@ function updateProgress(){
     if(state.days[d.date].done) done += 1;
   });
   document.getElementById("progressText").textContent = `本周完成 ${done}/${total} 天`;
+  if(window.TrainingStage) window.TrainingStage.feedback(state);
 }
 
 /* ---- Stats tab ---- */
 function switchTab(tab){
+  if(window.TrainingStage) window.TrainingStage.pause();
   document.getElementById("tab-week").hidden = tab !== "week";
   document.getElementById("tab-stats").hidden = tab !== "stats";
   document.getElementById("tabBtn-week").classList.toggle("active", tab === "week");
@@ -851,6 +898,7 @@ function exportJson(){
   const blob = {
     key: STORAGE_KEY,
     exported_at: new Date().toISOString(),
+    ...(window.TrainingWorkspace ? {workbench:window.TrainingWorkspace.exportData()} : {}),
     week: "2026-11-03 to 2026-11-09",
     state
   };
@@ -878,6 +926,7 @@ function importJson(){
     if(!incoming.days) throw new Error("格式不对");
     localStorage.setItem(STORAGE_KEY, JSON.stringify(incoming));
     state = loadState();
+    if(window.TrainingWorkspace) window.TrainingWorkspace.restore(obj.workbench);
     render();
     save();
     alert("导入成功");
@@ -903,6 +952,7 @@ function resetData(){
     document.getElementById("saveHint").textContent = "清空失败：无法保存到本机，请重试；原记录保留。";
     return;
   }
+  if(window.TrainingWorkspace) window.TrainingWorkspace.clearWeek();
   render();
   document.getElementById("saveHint").textContent = "本机已清空本周 · 清空结果将同步给教练";
   syncNow();
@@ -914,6 +964,7 @@ setSyncHint("同步：就绪（改动会自动上传）");
 if(localStorage.getItem(STORAGE_KEY)){ scheduleSync(); }
 </script>
 
+<script src="workspace.js"></script>
 <script>
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function () {

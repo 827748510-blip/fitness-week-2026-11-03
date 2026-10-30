@@ -1,7 +1,15 @@
-const CACHE = 'fitness-week-2026-11-03-v7-records-keyboard';
+const CACHE = 'fitness-week-2026-11-03-v12-static-gallery';
 const ASSETS = [
   './',
   './index.html',
+  './stage.css',
+  './stage.js',
+  './toy-renderer.js',
+  './workspace.js',
+  './workspace.css',
+  './reference-data.js',
+  './references.js',
+  './references.css',
   './manifest.webmanifest',
   './apple-touch-icon.png',
   './icons/icon-192.png',
@@ -35,24 +43,22 @@ self.addEventListener('install', (event) => {
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((keys) =>
-      Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k)))
+      Promise.all(keys.filter((k) => k.startsWith('fitness-week-2026-11-03-') && k !== CACHE).map((k) => caches.delete(k)))
     ).then(() => self.clients.claim())
   );
 });
 
 self.addEventListener('fetch', (event) => {
   const req = event.request;
-  if (req.method !== 'GET') return;
-  event.respondWith(
-    caches.match(req).then((cached) => {
-      const fetched = fetch(req).then((res) => {
-        if (res && res.ok && (req.url.startsWith(self.location.origin))) {
-          const copy = res.clone();
-          caches.open(CACHE).then((cache) => cache.put(req, copy));
-        }
-        return res;
-      }).catch(() => cached);
-      return cached || fetched;
-    })
-  );
+  if (req.method !== 'GET' || new URL(req.url).origin !== self.location.origin) return;
+  // Keep the active version's cache handle. A retiring worker must not reopen
+  // its deleted cache or serve another version's HTML during an update.
+  const cache = caches.open(CACHE);
+  const fetched = cache.then(async (current) => {
+    const res = await fetch(req);
+    if (res && res.ok) await current.put(req, res.clone());
+    return res;
+  });
+  event.waitUntil(fetched.then(() => undefined, () => undefined));
+  event.respondWith(cache.then(async (current) => (await current.match(req)) || fetched));
 });

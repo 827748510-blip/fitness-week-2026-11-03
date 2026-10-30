@@ -1,0 +1,39 @@
+✔ failed set confirmation preserves memory, storage, and the upload queue (8.126138ms)
+✔ final set saves weight and confirmation in one complete original-schema snapshot (17.822561ms)
+✔ failed undo leaves the saved final set confirmed and queues no second upload (2.367432ms)
+✔ weight statistics accept only a single finite nonnegative decimal with an optional kg unit (4.696809ms)
+✔ ranges, repetitions, signs, multiple numbers, unsupported units and free text are not concatenated into kg (1.462277ms)
+✔ new free-text actuals remain verbatim in records while ambiguous values stay out of lift statistics (15.14448ms)
+✔ legacy migration preserves all original text and derives statistics only from unambiguous weights (3.04397ms)
+✔ loading existing v2 records never rewrites historical numeric logs or original actuals (1.99337ms)
+✔ "Enter" opens the lightbox without default scrolling and Escape restores focus (1.394618ms)
+✔ " " opens the lightbox without default scrolling and Escape restores focus (1.174302ms)
+✔ mouse/touch click behavior remains available and repeated keys or unrelated inputs do not activate images (1.062107ms)
+✔ all 64 reference sheets have complete, hash-matched previews and clear images (27.664529ms)
+✔ reset after a completed upload persists and uploads a full empty snapshot with the existing protocol (24.05929ms)
+✔ cancel leaves records, storage, timers and requests untouched (1.823831ms)
+✔ reset cancels an older debounce so only empty data uploads (2.053729ms)
+✔ failed reset upload is explicit and manual retry sends the saved empty state ({"offline":true}) (5.124279ms)
+✔ failed reset upload is explicit and manual retry sends the saved empty state ({"status":401}) (3.291175ms)
+✔ failed reset upload is explicit and manual retry sends the saved empty state ({"status":503}) (3.275191ms)
+✔ reopening after an offline reset retries empty data, without resurrecting old records (3.772835ms)
+✔ an in-flight old upload finishes before the reset snapshot is sent (null) (2.92243ms)
+✔ an in-flight old upload finishes before the reset snapshot is sent ({"offline":true}) (3.773106ms)
+✔ an in-flight old upload finishes before the reset snapshot is sent ({"status":500}) (2.890034ms)
+✔ edits during reset upload are serialized and the newest snapshot wins (2.51522ms)
+✔ storage failure preserves original records and sends no reset (2.08785ms)
+✔ an empty first visit does not upload until the user makes a change (2.895321ms)
+✔ reset preserves other weeks and historical logs in storage and upload (3.17273ms)
+✔ legacy migration followed by reset reopens the v2 cleared snapshot (5.393465ms)
+✔ all seven overview and detail labels match calendar dates (1.364082ms)
+✔ weekdays are identical across UTC, Shanghai, DST and extreme timezone offsets (147.820895ms)
+✔ SW precache serves every current local asset offline and preserves foreign caches (36.756811ms)
+✔ active SW uses only its named cache and a late response cannot reopen a deleted cache (1.289251ms)
+ℹ tests 31
+ℹ suites 0
+ℹ pass 31
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 340.048536

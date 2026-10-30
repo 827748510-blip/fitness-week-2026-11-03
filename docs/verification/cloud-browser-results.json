@@ -1,0 +1,177 @@
+[
+  {
+    "suite": "browser-smoke",
+    "status": "PASS",
+    "reports": {
+      "fitnessSmokeReport": {
+        "result": "PASS",
+        "mockUploads": 13,
+        "labels": [
+          "11-03 周二",
+          "11-04 周三",
+          "11-05 周四",
+          "11-06 周五",
+          "11-07 周六",
+          "11-08 周日",
+          "11-09 周一"
+        ],
+        "checks": [
+          "mobile and desktop",
+          "reset success",
+          "failure and manual retry",
+          "reload retry",
+          "serialized in-flight reset",
+          "historical records preserved",
+          "stats refresh",
+          "strict weight parsing",
+          "keyboard and focus",
+          "mouse and touch",
+          "no runtime errors"
+        ],
+        "externalRequestsAllowed": 0
+      }
+    }
+  },
+  {
+    "suite": "cloud-extended-browser-smoke",
+    "status": "PASS",
+    "reports": {
+      "fitnessExtendedReport": {
+        "results": [
+          {
+            "name": "workspace-picture-keyboard",
+            "status": "PASS",
+            "errors": [],
+            "external": []
+          },
+          {
+            "name": "failed-storage-no-phantom-record",
+            "status": "PASS",
+            "errors": [],
+            "external": []
+          },
+          {
+            "name": "repeated-confirm-and-input-errors",
+            "status": "PASS",
+            "errors": [],
+            "external": []
+          },
+          {
+            "name": "undo-storage-failure",
+            "status": "PASS",
+            "errors": [],
+            "external": []
+          },
+          {
+            "name": "all-pages-dates-widths-safe-area",
+            "status": "PASS",
+            "errors": [],
+            "external": []
+          },
+          {
+            "name": "static-reference-navigation-no-records",
+            "status": "PASS",
+            "errors": [],
+            "external": []
+          },
+          {
+            "name": "keyboard-viewport-simulation",
+            "status": "PASS",
+            "errors": [],
+            "external": []
+          },
+          {
+            "name": "workbench-week-record-reflection",
+            "status": "PASS",
+            "errors": [],
+            "external": []
+          },
+          {
+            "name": "save-helper-real-dom-card",
+            "status": "PASS",
+            "errors": [],
+            "external": []
+          }
+        ],
+        "limitations": [
+          "Chromium emulation only",
+          "safe area uses CSS simulation",
+          "live SW blocked"
+        ]
+      }
+    }
+  },
+  {
+    "suite": "cloud-journal-browser-smoke",
+    "status": "PASS",
+    "reports": {
+      "fitnessJournalReport": {
+        "results": [
+          {
+            "name": "complete-primary-and-rollback-fail",
+            "status": "PASS"
+          },
+          {
+            "name": "undo-primary-and-rollback-fail",
+            "status": "PASS"
+          },
+          {
+            "name": "complete-committed-cleanup-fails",
+            "status": "PASS"
+          },
+          {
+            "name": "undo-committed-cleanup-fails",
+            "status": "PASS"
+          },
+          {
+            "name": "identical-primary-snapshot-journal",
+            "status": "PASS"
+          },
+          {
+            "name": "committed-journal-survives-unrelated-edit",
+            "status": "PASS"
+          },
+          {
+            "name": "rejected-journal-survives-unrelated-edit",
+            "status": "PASS"
+          }
+        ],
+        "syntheticOnly": true,
+        "liveWorkers": "blocked",
+        "coverage": "stage success then primary+cleanup fail; successful primary then cleanup fails; reload still write-blocked; writable retry; repeated operations; unchanged primary; unrelated edits"
+      }
+    }
+  },
+  {
+    "suite": "gallery-browser-smoke",
+    "status": "PASS",
+    "reports": {
+      "fitnessGalleryReport": {
+        "result": "PASS",
+        "checks": [
+          "lazy preview, tabs, clear image, detail zoom, focus, no training writes",
+          "all 64 previews decoded; all variants; six pending poses; F20 scope",
+          "nested overlay return, scroll restore, image failure and retry"
+        ],
+        "pending": [
+          "F01",
+          "F04",
+          "F14",
+          "F24",
+          "F26",
+          "F27"
+        ],
+        "previewImages": 64,
+        "externalRequestsAllowed": 0,
+        "widths": [
+          320,
+          360,
+          390,
+          430,
+          844,
+          1440
+        ]
+      }
+    }
+  }
+]

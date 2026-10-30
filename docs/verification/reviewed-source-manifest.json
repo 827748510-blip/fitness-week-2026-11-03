@@ -1,0 +1,232 @@
+[
+  {
+    "path": ".gitignore",
+    "size_bytes": 55,
+    "sha256": "7f4f2d108c1caae72fdf5599fe96dc1605034005345969d1cb9c439c1ede5080"
+  },
+  {
+    "path": ".nojekyll",
+    "size_bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "README.md",
+    "size_bytes": 4360,
+    "sha256": "6273a0ab5af6e653ce5185e042207bc8fbede1001f052e6f23616bdac2508a19"
+  },
+  {
+    "path": "TRAINING_STAGE_NOTE.md",
+    "size_bytes": 7871,
+    "sha256": "d274aac66716f2a9aab6fc72aa038eba832650e866e841d1a604bd4890c57348"
+  },
+  {
+    "path": "apple-touch-icon.png",
+    "size_bytes": 1463,
+    "sha256": "967f1ec483d813aefb38962d07c3a4f1f81852266aeb13dca0f8fa2da495a121"
+  },
+  {
+    "path": "icons/apple-touch-icon.png",
+    "size_bytes": 1180,
+    "sha256": "d0c92df86c6e748556213623883968ef6324787e7f19e15cd4cbd9ad4e42dddb"
+  },
+  {
+    "path": "icons/icon-192.png",
+    "size_bytes": 1250,
+    "sha256": "b0bb3ef78859b6f9ba2808ad52f3c1db10f6734350a52fb98b1d95fde6105168"
+  },
+  {
+    "path": "icons/icon-512.png",
+    "size_bytes": 3328,
+    "sha256": "b004280063fe5afebf6118aee0c1fdb1c033bae33043d98c3b74dad581a1d061"
+  },
+  {
+    "path": "images/form-arms-ss.jpg",
+    "size_bytes": 122873,
+    "sha256": "374c239bf749e17567e8f223f3b666a31b7f9726237a37803b012ea4d07932e4"
+  },
+  {
+    "path": "images/form-chest.jpg",
+    "size_bytes": 71817,
+    "sha256": "a90c59fb513b4e413f0ca9d0d45183d598bfbbe41c55be65d16abec310aa0df5"
+  },
+  {
+    "path": "images/form-crunch.jpg",
+    "size_bytes": 91814,
+    "sha256": "efded337b9e424fd91e5599d65bc0831a1a98d8832be7af0c82f33ac6efe4482"
+  },
+  {
+    "path": "images/form-lateral.jpg",
+    "size_bytes": 60908,
+    "sha256": "17ae233bc9f8c7c9c314bca7850160515520dbaa57019bf4291e55ec9cee611b"
+  },
+  {
+    "path": "images/form-legcurl.jpg",
+    "size_bytes": 97774,
+    "sha256": "29872c1122ba0f43793f2ece355a31dd67370bbd27f6d90a428ae53fba1c3331"
+  },
+  {
+    "path": "images/form-legpress.jpg",
+    "size_bytes": 89209,
+    "sha256": "1d29c6449f01c2c944488244c709cc1771f5c9d609050c341139f6ab9b7cf020"
+  },
+  {
+    "path": "images/form-plank.jpg",
+    "size_bytes": 77455,
+    "sha256": "f931e40af138efa1cea960a05223181845cd1adbfe582aa30d2f31cd1571ea73"
+  },
+  {
+    "path": "images/form-pulldown.jpg",
+    "size_bytes": 60360,
+    "sha256": "55e34759a745dd0a4ce3888fcbc141f58d03b27495385cb1ea6ac664faf5e6b8"
+  },
+  {
+    "path": "images/form-rdl.jpg",
+    "size_bytes": 85624,
+    "sha256": "319ff3fb720f61fb5b0009fc7c915ffe0ff33214cb423b8e812a363f8d36a75f"
+  },
+  {
+    "path": "images/form-row.jpg",
+    "size_bytes": 83645,
+    "sha256": "26dff7995a90df67410d626505ad20b2c860efb91ce4e5e6b0127c7abcbe4a28"
+  },
+  {
+    "path": "images/form-shoulderpress.jpg",
+    "size_bytes": 46731,
+    "sha256": "50d58038842f5b345b106abe42f546dd05c4b632480973673a5d01956456c73e"
+  },
+  {
+    "path": "images/form-squat.jpg",
+    "size_bytes": 55007,
+    "sha256": "5a5eebaa6919a12a2bffeb8dc55d1442b0e0566fb3b164a9cdc18b08429749fe"
+  },
+  {
+    "path": "images/meal-bf.jpg",
+    "size_bytes": 71130,
+    "sha256": "6bad0f18bf48cc956ef6fb32f9a6884a96ea58281743516dd095878a1563e611"
+  },
+  {
+    "path": "images/meal-dinner.jpg",
+    "size_bytes": 120460,
+    "sha256": "259c106dfd974630e715629fb8e08053a224b7ce12dfd5bf49b0f07a9cc5560e"
+  },
+  {
+    "path": "images/meal-lunch.jpg",
+    "size_bytes": 104501,
+    "sha256": "596c277e47e507f8ea52982819fd553c5a5ef80966f2763076cd7c9c75ac0cad"
+  },
+  {
+    "path": "images/warmup1.jpg",
+    "size_bytes": 77975,
+    "sha256": "1df883222c898817b0a92f241c6c90d9aeb24fbaeda8b1495109937c6d7ac12a"
+  },
+  {
+    "path": "images/warmup2.jpg",
+    "size_bytes": 79157,
+    "sha256": "1cd21780606027172727b9d56381122b9b69040cde8bd175fdf193cf6dda7387"
+  },
+  {
+    "path": "index.html",
+    "size_bytes": 52191,
+    "sha256": "70117c3f55e3dfb6746cbbfad695b35ec025f8c9774f94cde4c02c3a169a9bea"
+  },
+  {
+    "path": "manifest.webmanifest",
+    "size_bytes": 758,
+    "sha256": "00c6ae2945c39b9db46d3f45822f4d01eab8ef7775f9af0448ae035ac539db6f"
+  },
+  {
+    "path": "scripts/serve-review.py",
+    "size_bytes": 3953,
+    "sha256": "13395c29e743fe0c6f60b21f4c6d4de6ce431371502e3f990e71e35baead1a54"
+  },
+  {
+    "path": "stage.css",
+    "size_bytes": 13400,
+    "sha256": "24e69664417717c5eaf76bb918860e9cdf25c69cbb51afb953cc5ea9e80dfc8f"
+  },
+  {
+    "path": "stage.js",
+    "size_bytes": 21764,
+    "sha256": "57014ac8ddf4ce3b38ffc3474226a0b3dc4e0bd821a6c681bc67d3cb085378e0"
+  },
+  {
+    "path": "sw.js",
+    "size_bytes": 1963,
+    "sha256": "17bd498604e5a9997c800365ee39824d69e1b24f2a8f9ba6937810851a75f8e0"
+  },
+  {
+    "path": "tests/app-harness.cjs",
+    "size_bytes": 4125,
+    "sha256": "39785709e2de7ad29c6bc239a68c14cbaec63bc5729bd0844e5e7b6921993677"
+  },
+  {
+    "path": "tests/browser-smoke.js",
+    "size_bytes": 9288,
+    "sha256": "649fa64fb5c6c0223ff09dda50ece61efe5f23596430a8c504958fa322092d19"
+  },
+  {
+    "path": "tests/cloud-extended-browser-smoke.js",
+    "size_bytes": 11816,
+    "sha256": "bfa89ca7b39048f02c3c2d4ee3785e643cd698b5cd7370a759cbf1ee32d2baac"
+  },
+  {
+    "path": "tests/cloud-journal-browser-smoke.js",
+    "size_bytes": 8294,
+    "sha256": "97063cdc95456f36338879590151d91e29140389958b1026e2e03ca93e66ec2b"
+  },
+  {
+    "path": "tests/cloud-storage.test.cjs",
+    "size_bytes": 1886,
+    "sha256": "467b3ab0f4df02ced5fd7ade36c583ffc192d576143f0c6d9ab3075b77b5c2c0"
+  },
+  {
+    "path": "tests/hidden-browser-smoke.js",
+    "size_bytes": 4794,
+    "sha256": "d824bd80565d8a80d3ddf6e53de593ebb95960be85bdf95780fc923b1764fd6c"
+  },
+  {
+    "path": "tests/records-keyboard.test.cjs",
+    "size_bytes": 5822,
+    "sha256": "3b8e567ccf7a2a6cd35cc9b69559602ecf701f9a09b3a3b5c191359ac8cbeb26"
+  },
+  {
+    "path": "tests/regression.test.cjs",
+    "size_bytes": 8304,
+    "sha256": "54b0e245eee43fd3eb32503b09d4be7f5545d3408179f7a5c89cc2517f2b7466"
+  },
+  {
+    "path": "tests/review-browser-smoke.js",
+    "size_bytes": 2614,
+    "sha256": "328cca703df2d5b3e0a3071a894f0093cccaabcf51ad0037ffa9a5bfda765cfd"
+  },
+  {
+    "path": "tests/stage-browser-smoke.js",
+    "size_bytes": 9598,
+    "sha256": "1239a05826bd56b4dae78d5557ba139dc575f81e40cc724ffa98824775282ac2"
+  },
+  {
+    "path": "tests/sw-contract.test.cjs",
+    "size_bytes": 4265,
+    "sha256": "37cbeca2d1342eda0a226ef7890769452a2a015f561063cdd4b4fe5700a4c219"
+  },
+  {
+    "path": "tests/workspace-browser-smoke.js",
+    "size_bytes": 14553,
+    "sha256": "07848e5d80b3093efb7cb71401bf3b61b88fb8353ba25c80e5cc17de318445e7"
+  },
+  {
+    "path": "toy-renderer.js",
+    "size_bytes": 8991,
+    "sha256": "a501123a9b380ad1ddf0c88d96f299b51e2fd87cd08117ff0944409f3d9db977"
+  },
+  {
+    "path": "workspace.css",
+    "size_bytes": 24579,
+    "sha256": "ea431c0b7b0faac7d464eb3c6484ea45c9b6c37c59a83286ac4f4793bdd9299e"
+  },
+  {
+    "path": "workspace.js",
+    "size_bytes": 23376,
+    "sha256": "d25e9045cd1fd4f2dddab7baa0d6b6873794484b688eb851479eb4f903f79f70"
+  }
+]

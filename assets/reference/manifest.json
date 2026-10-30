@@ -1,0 +1,1489 @@
+{
+  "release": "2026-10-30-gallery-v12",
+  "source_tree": "c57bec205eab8816db0d3637983f583442824b6910d5b615d6971ea3d55572d6",
+  "pose_package_version": 1,
+  "supplement_package_version": 0,
+  "muscle_package_version": 0,
+  "pending_pose_ids": [
+    "F01",
+    "F04",
+    "F14",
+    "F24",
+    "F26",
+    "F27"
+  ],
+  "assets": [
+    {
+      "id": "F01",
+      "kind": "pose",
+      "input_sha256": "c1c5d4861bd7c16031e265a52e319879a00b12daffd666714b7f3ad6a6f7f730",
+      "input_library_file_id": "libfile_9bbae260c4608191a65959a92da7e7fe",
+      "input_library_version": 0,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/F01-pose-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 16152,
+          "sha256": "f703c7633f464025d6609a768c13f5609900ff4d9098d492b54251eec1466e15"
+        },
+        "full": {
+          "src": "assets/reference/F01-pose-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 120994,
+          "sha256": "e036ef6adc00fbf464ab84affd7ab7741b06c4797a5abbc545efe905b708a834"
+        }
+      }
+    },
+    {
+      "id": "F01",
+      "kind": "muscle",
+      "input_sha256": "63b6457bd2c58cb89fd0826bb3e24e21b5442ce7f55313e63bfefda425a96381",
+      "input_library_file_id": "libfile_edf3af1e1b24819193ad4e2e43cba684",
+      "input_library_version": 0,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/F01-muscle-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 27188,
+          "sha256": "22fae3db0e632ba01a6795efdba0464655f60eb2677a74bf54a2947bbb9254b5"
+        },
+        "full": {
+          "src": "assets/reference/F01-muscle-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 161180,
+          "sha256": "f587e381aadf8b29d93fcf1715e02ee17e5f2b00d018ae06e95fbc54eabafd6f"
+        }
+      }
+    },
+    {
+      "id": "F02",
+      "kind": "pose",
+      "input_sha256": "07e1fdacfe863fa3b6db30b051e5c5901884973998502faa04b2bc15e71f3f86",
+      "input_library_file_id": "libfile_a828bd7fb3348191bc3a0ecc28734834",
+      "input_library_version": 1,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/F02-pose-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 16820,
+          "sha256": "bc19202756d08e8ecd0c98505fcc8110dac341fa1fb5157006b43d93bcbf5b99"
+        },
+        "full": {
+          "src": "assets/reference/F02-pose-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 111728,
+          "sha256": "8fa5c8b1bf53b121cfbf67492c51157cb4984e6a253941d8179fecdb6c934dc3"
+        }
+      }
+    },
+    {
+      "id": "F02",
+      "kind": "muscle",
+      "input_sha256": "525bfb55e00303bf7ad9f39dc5c7c2ad0d67484a86f666a658503a830007223e",
+      "input_library_file_id": "libfile_9189458fa2588191b668c0b955ab9976",
+      "input_library_version": 0,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/F02-muscle-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 29874,
+          "sha256": "fe5abab80aafcff4258461ec5c183128faf457d2e8519114912fb078143c92e6"
+        },
+        "full": {
+          "src": "assets/reference/F02-muscle-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 163720,
+          "sha256": "8056876bbf2a9ec11847c6a1436e02f252e7968ba24f8571603c5115ec4c551c"
+        }
+      }
+    },
+    {
+      "id": "F03",
+      "kind": "pose",
+      "input_sha256": "2e8d5c1a3c7ba302fe06ec63bcce18f8038318e8cb3c0e64d44eaf20ca406187",
+      "input_library_file_id": "libfile_fbad68dd11288191ad44ebed255221ba",
+      "input_library_version": 0,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/F03-pose-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 17414,
+          "sha256": "acf3b1d79da8850363411c2f9f6b350e5ec1967549e9773ccc88eb35a684938f"
+        },
+        "full": {
+          "src": "assets/reference/F03-pose-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 111946,
+          "sha256": "bd52d1822484dd5724f305fc6db95835a923924c0883bd392d1ff62180146a56"
+        }
+      }
+    },
+    {
+      "id": "F03",
+      "kind": "muscle",
+      "input_sha256": "6ff1698d47daa6ef3a9457c9a0881ce733381c581928b2cd12f9181094cd0752",
+      "input_library_file_id": "libfile_5ed486cf4d0881918dec630c7e0fadbc",
+      "input_library_version": 0,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/F03-muscle-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 27714,
+          "sha256": "95a231265dbc6a0a119c14004f95b94fff1d3eccdfcbcc8571eef8368e4bb3d9"
+        },
+        "full": {
+          "src": "assets/reference/F03-muscle-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 151310,
+          "sha256": "beaed1e96d4e10a289fffda7d2d84d2b6573a0aab961ef5dbda2e8ab56219ef8"
+        }
+      }
+    },
+    {
+      "id": "F04",
+      "kind": "pose",
+      "input_sha256": "fbcf23df83847c2ca15bd4664702fd03e9412af07e80f9b38273f48a4af02f62",
+      "input_library_file_id": "libfile_d3994d4cbdc481919510c7ee1a69db5c",
+      "input_library_version": 1,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/F04-pose-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 13338,
+          "sha256": "9f364cbf60ae065cb008df900220bfe9e179e4ef9b77a5c487c731c4aafac11a"
+        },
+        "full": {
+          "src": "assets/reference/F04-pose-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 86056,
+          "sha256": "dc7606be01defc5a94c58c927c22a0a565bff70383f14578b38556fefd243f85"
+        }
+      }
+    },
+    {
+      "id": "F04",
+      "kind": "muscle",
+      "input_sha256": "487afdf1da3f80356d35fbd2bba8e19aa272a2dfae01d17367a8eb90907e02e7",
+      "input_library_file_id": "libfile_8f3876789b388191add814f5b2f4afc2",
+      "input_library_version": 0,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/F04-muscle-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 26906,
+          "sha256": "32e884d8264aa8a14c8790242d73c1eeb90c3332a72bc640b81763f7edddd114"
+        },
+        "full": {
+          "src": "assets/reference/F04-muscle-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 142430,
+          "sha256": "c2907fd4158dc98818de9dc67e2ce92f337b0a7cf39cb97f6a01ef96d4e3b0ab"
+        }
+      }
+    },
+    {
+      "id": "F05",
+      "kind": "pose",
+      "input_sha256": "fa0e1ce09bbff3653b7b184e067b506e6ddeff5cf20b5961e90f4951f27c9c3b",
+      "input_library_file_id": "libfile_231dec6f2ee08191aec7fdf0c22c2512",
+      "input_library_version": 1,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/F05-pose-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 15990,
+          "sha256": "14d2c4df6fc7ef161ae73a86df8fd457ca613c21c62c35253f963b7eb370c6f5"
+        },
+        "full": {
+          "src": "assets/reference/F05-pose-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 98980,
+          "sha256": "d54d1289910efe22f1b452eb5b6875655c8b4800636607732de8995b8d43454b"
+        }
+      }
+    },
+    {
+      "id": "F05",
+      "kind": "muscle",
+      "input_sha256": "5d5a5d6a48936c0eb5ae6544926c4f7aa0dea0a28188e3a19a7f45a0e072e826",
+      "input_library_file_id": "libfile_17a0cfb329fc8191919b5dafe42ef536",
+      "input_library_version": 0,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/F05-muscle-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 33888,
+          "sha256": "2b539e49e0316ed96fb7d10e2681b99c308d4e95e5d2ea48b1305ce257283043"
+        },
+        "full": {
+          "src": "assets/reference/F05-muscle-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 201274,
+          "sha256": "0c5076c2aa3c99cf62f763be37fab2079fcc9baea2c3bb6b4a38c5c77b4327da"
+        }
+      }
+    },
+    {
+      "id": "F06",
+      "kind": "pose",
+      "input_sha256": "8bb302d51e41300947660310e7eaa8d6c87f26bba655c82785f35d6f76ef16b1",
+      "input_library_file_id": "libfile_cd604ea7707c8191a926ff750405b03b",
+      "input_library_version": 0,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/F06-pose-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 12864,
+          "sha256": "ac0a531a5561aae94b078545eb68cebcedb38b86e07ab021440a70737a26ea7e"
+        },
+        "full": {
+          "src": "assets/reference/F06-pose-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 93964,
+          "sha256": "a3fa94fce6d15da53ee12292404603275ee860b6c5728bdce2d3951a3757e18b"
+        }
+      }
+    },
+    {
+      "id": "F06",
+      "kind": "muscle",
+      "input_sha256": "48001825d1c831459a619fc32b1306a6947e13d5124e08fd1b2d6ac7c92e3156",
+      "input_library_file_id": "libfile_e37a5f82c77c8191975bde85415e6f31",
+      "input_library_version": 0,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/F06-muscle-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 36474,
+          "sha256": "276066bb111f16e1719fa4b7c395c847ab2000351c08dfc68ee1b470580464f1"
+        },
+        "full": {
+          "src": "assets/reference/F06-muscle-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 194676,
+          "sha256": "7802fde0640c35f69e771d6540bb57b051c89642dfa6b29d12d92eeb04267be4"
+        }
+      }
+    },
+    {
+      "id": "F07",
+      "kind": "pose",
+      "input_sha256": "60e1238b31b7dadd38f771b428e1318a8d4d9d52ccc7277b32d6aa8bfdad3bdd",
+      "input_library_file_id": "libfile_ba68ac4082408191940855349ab8f4dc",
+      "input_library_version": 1,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/F07-pose-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 13034,
+          "sha256": "b7f252945cdd3c3b6327dc4cd618c2fc245dcf6b101403469beaafeb6ccc274b"
+        },
+        "full": {
+          "src": "assets/reference/F07-pose-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 89242,
+          "sha256": "051a678e99305d75c83f988aaea3422c3577e18fd420db197c807599ce2c689f"
+        }
+      }
+    },
+    {
+      "id": "F07",
+      "kind": "muscle",
+      "input_sha256": "80cc9df596c3866cb8df5f6c1e02a402024ce4ba183eab6d2cc5b8cf7730a30c",
+      "input_library_file_id": "libfile_c526b0babb1481919a429be8ada26195",
+      "input_library_version": 0,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/F07-muscle-thumb.webp",
+          "width": 640,
+          "height": 320,
+          "bytes": 18556,
+          "sha256": "d6204f7a57634be199c1b8da856162021c275debc0a499ff5d1ca719ad14f099"
+        },
+        "full": {
+          "src": "assets/reference/F07-muscle-full.webp",
+          "width": 1600,
+          "height": 800,
+          "bytes": 110004,
+          "sha256": "10d208469837dd75ac3f10d9586a74d5d0868e6e3e7292a212e2c1f0378ded11"
+        }
+      }
+    },
+    {
+      "id": "F08",
+      "kind": "pose",
+      "input_sha256": "81b01d949c90f75dcf17dc988cb86044367f10c6a97111d0626a43da8b42aa94",
+      "input_library_file_id": "libfile_dd058bb706488191bcab5d9e48eaac23",
+      "input_library_version": 1,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/F08-pose-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 10660,
+          "sha256": "3fe2c2bafd9373d3b69e07b10bd116f1d1d1ea57a5bae6791c38b9b80ace02e3"
+        },
+        "full": {
+          "src": "assets/reference/F08-pose-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 72000,
+          "sha256": "4a6a115a0f3174e04e12ab5e7fa0ebeb684de9d73830e32d91c00433eb4fcf7b"
+        }
+      }
+    },
+    {
+      "id": "F08",
+      "kind": "muscle",
+      "input_sha256": "7db68f5bf9c7c7ebe6249b2e091de79cd3477392e41e8d619a466bb3ba0af62c",
+      "input_library_file_id": "libfile_907371fe2b108191899b37f8f230a176",
+      "input_library_version": 0,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/F08-muscle-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 34134,
+          "sha256": "0d0dfb754f38a36d0446919c118fa83f558eb7e322b3ec9dd09deaee7321c551"
+        },
+        "full": {
+          "src": "assets/reference/F08-muscle-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 171156,
+          "sha256": "73734832489a722d1aab307db4685c69ed1b872329e51c8333a11efe14668992"
+        }
+      }
+    },
+    {
+      "id": "F09",
+      "kind": "pose",
+      "input_sha256": "c758af467b77fd5a163a93f8c0ca445fd84b10a96ce35fe909680e8ad0223416",
+      "input_library_file_id": "libfile_1e9fe7488140819190f2eb8f6eaeee63",
+      "input_library_version": 1,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/F09-pose-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 10140,
+          "sha256": "6bf34db6decd33dd751c409e48d6d7c758823cbd268bb7d23ba2a2a044caecfd"
+        },
+        "full": {
+          "src": "assets/reference/F09-pose-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 69624,
+          "sha256": "047ed8ef08dbb95bd721362ee37fd716492841f4dae1efdaa0b5bd78aa43e913"
+        }
+      }
+    },
+    {
+      "id": "F09",
+      "kind": "muscle",
+      "input_sha256": "8c2629a64bce561e882937e9971f27c17fe9660ee74822a370700f6294a8f2d8",
+      "input_library_file_id": "libfile_eccda7654e8881919094ed3a63b3c04c",
+      "input_library_version": 0,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/F09-muscle-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 24370,
+          "sha256": "2d615c46c4a15bfc6d2785f2395b3251d88cfce97a06b03d2c761ac5dfd64cc8"
+        },
+        "full": {
+          "src": "assets/reference/F09-muscle-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 130174,
+          "sha256": "b7df216da6a8b741db3dbaf2d200d4854cb4c8cf84609542dbc593801401627a"
+        }
+      }
+    },
+    {
+      "id": "F10",
+      "kind": "pose",
+      "input_sha256": "0b77282621f4754fa6392ad4835bd56d7d4050c9019faa8fd540c2ffa399fcb2",
+      "input_library_file_id": "libfile_897dc5f73dd48191b0d1cbabfb5be06c",
+      "input_library_version": 1,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/F10-pose-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 8334,
+          "sha256": "ee8f94608aa230e3e642d048bb3a7bfa1f782975cd8989ff3d101433c50664bb"
+        },
+        "full": {
+          "src": "assets/reference/F10-pose-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 57988,
+          "sha256": "3d0c24709e859e052a22194fd1457cc83e15100813bac69441c2d98187a06495"
+        }
+      }
+    },
+    {
+      "id": "F10",
+      "kind": "muscle",
+      "input_sha256": "cf4e6fb4677f7c6715e6aaf888ac7d0d90ecc516593b0a01539c7da9e2123907",
+      "input_library_file_id": "libfile_f999518adf2081919803f241ba21df34",
+      "input_library_version": 0,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/F10-muscle-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 34840,
+          "sha256": "77d0df740d7513fef34ac56e324bb89fd2b7dc19fd759ec1145fada605c4f87f"
+        },
+        "full": {
+          "src": "assets/reference/F10-muscle-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 200582,
+          "sha256": "d697783a5e3910cbd335b3bad46c768879f56caef98f653bd90d25f732618ba6"
+        }
+      }
+    },
+    {
+      "id": "F11",
+      "kind": "pose",
+      "input_sha256": "06c9cce7d85ef703fb5a6fcdb24ded0f65a17e1460e6541695d1b2581f0b52fa",
+      "input_library_file_id": "libfile_4058423a7d1c81919f8a0c76e558fed6",
+      "input_library_version": 0,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/F11-pose-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 11944,
+          "sha256": "f7491bb3cff34cbf77346d8fe1594d91b97099c0aa3a96e34a318626a008c3a5"
+        },
+        "full": {
+          "src": "assets/reference/F11-pose-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 81084,
+          "sha256": "e5a9ab77e2141a9cc5dd46795f497abb0ee4ad2fe86a28616ee21017ee91c749"
+        }
+      }
+    },
+    {
+      "id": "F11",
+      "kind": "muscle",
+      "input_sha256": "de6aa2109ff3a138a9af06140783b6ea9e1a52414bf5c7b496dca6985778647b",
+      "input_library_file_id": "libfile_a354b6f441e08191bc59739afcf15b1a",
+      "input_library_version": 0,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/F11-muscle-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 34090,
+          "sha256": "438aa0db9edc440253b05ba4ce4288654ab4d84bbf02feb0fe7932aa7b672185"
+        },
+        "full": {
+          "src": "assets/reference/F11-muscle-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 199998,
+          "sha256": "4efb078b20192011afa5067cb4f064f88b7389e811bd40a098bfc64351f88f0e"
+        }
+      }
+    },
+    {
+      "id": "F12",
+      "kind": "pose",
+      "input_sha256": "0f084aeb103057f8669cd2d7cae327005991905edd28d278f15698c8398ef30c",
+      "input_library_file_id": "libfile_a8d91802af7c8191887350f644cce224",
+      "input_library_version": 1,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/F12-pose-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 11882,
+          "sha256": "7469377d4d66a9e361d9c477cbc9749e49d0d0fde227b3157b04464f74f33c1c"
+        },
+        "full": {
+          "src": "assets/reference/F12-pose-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 83806,
+          "sha256": "49be13f0c77e6bd748b815db655a599492a443e1eeb0e3e9c44e27965603d272"
+        }
+      }
+    },
+    {
+      "id": "F12",
+      "kind": "muscle",
+      "input_sha256": "56112d00c6f3e1e9fcd10a2e4d524a205b86b4e5cfc45088143b6772e7c42bcf",
+      "input_library_file_id": "libfile_d299f35df02881918c7db161f14d6f26",
+      "input_library_version": 0,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/F12-muscle-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 35234,
+          "sha256": "08e695962cefeb3835a08d0d86bed3042876ced92acc45414cd0caf27f1145ba"
+        },
+        "full": {
+          "src": "assets/reference/F12-muscle-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 204150,
+          "sha256": "3df450531976dda15b90e164bf96276c5fb2266d8f4e7b28afd5e4149490b1be"
+        }
+      }
+    },
+    {
+      "id": "F13",
+      "kind": "pose",
+      "input_sha256": "15577a6d01ce376342f1c3b5d472e5c188e42b65881a0e20285262c93c851288",
+      "input_library_file_id": "libfile_f0532d97e34c81919c7c500a733a094d",
+      "input_library_version": 0,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/F13-pose-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 13770,
+          "sha256": "04dee1477e55a3a2b234ca059b2001ae5cfb8df2f2332cbbec44d2b248dadd77"
+        },
+        "full": {
+          "src": "assets/reference/F13-pose-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 93014,
+          "sha256": "5db117e2ae9976137a8c1d68163114cb2a688568bbcc616b3a3454e8c07d8bdb"
+        }
+      }
+    },
+    {
+      "id": "F13",
+      "kind": "muscle",
+      "input_sha256": "010626cb99abf0235ab3adb2b784f3a678d4d907965c7e6786567b3025d7fa50",
+      "input_library_file_id": "libfile_3f40b61aa5c48191aabde48c3258b4da",
+      "input_library_version": 0,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/F13-muscle-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 35700,
+          "sha256": "a138e0980f9dd307b0d3f6151560d6cef1fd27a46052142645da29f4f29e799f"
+        },
+        "full": {
+          "src": "assets/reference/F13-muscle-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 192998,
+          "sha256": "ee312bded75b99097e176a380256e3587e5d4efe103abfb30f47c485d206037f"
+        }
+      }
+    },
+    {
+      "id": "F14",
+      "kind": "pose",
+      "input_sha256": "99e5e782775f157784f1b129a44c757f9ca6e94a2f572516964025856689d597",
+      "input_library_file_id": "libfile_3794cdcf0004819193e4263f29ad702d",
+      "input_library_version": 0,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/F14-pose-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 13756,
+          "sha256": "fc80c7632d8a96ede3f51511ff0a9760b0764510832dd71927e418f7d5699ea5"
+        },
+        "full": {
+          "src": "assets/reference/F14-pose-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 100486,
+          "sha256": "6e52d8cf0c7397d16709a693c9a379d22076c37541dca1caca40a9b7bb656ed4"
+        }
+      }
+    },
+    {
+      "id": "F14",
+      "kind": "muscle",
+      "input_sha256": "a5c08d452667c36bf9a074a8bdfcc1cd13c5767d678b1fc0585eae238d606ca1",
+      "input_library_file_id": "libfile_bb4fc86aaab8819193a90677513344c1",
+      "input_library_version": 0,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/F14-muscle-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 35900,
+          "sha256": "983fcd48531b383838af99f0ebf20fa62baa0931e10e3a2afdf57d642f6545f1"
+        },
+        "full": {
+          "src": "assets/reference/F14-muscle-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 199046,
+          "sha256": "4fb0b0d2971bf2fef8f6a27deeb88bd555a533a1a657b9b3e4b8df91f9bb0fb4"
+        }
+      }
+    },
+    {
+      "id": "F15",
+      "kind": "pose",
+      "input_sha256": "9abbba00cdcef65c91ada293d52f7bc11120c822b9e0b847f9c4d19565712fc0",
+      "input_library_file_id": "libfile_246e8d581fc081919838f2e2426c5791",
+      "input_library_version": 1,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/F15-pose-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 10542,
+          "sha256": "317569e2e6b9fbd621cc41f65e5948d7e355068dbd24e0682654fe0d6b6980ab"
+        },
+        "full": {
+          "src": "assets/reference/F15-pose-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 62400,
+          "sha256": "80104d83e60d80d3677a6697673dce77e586c10cdddf85276837ad4af310b51c"
+        }
+      }
+    },
+    {
+      "id": "F15",
+      "kind": "muscle",
+      "input_sha256": "0222c31b76658c3564cfd8c32d491107614d99be2faafb65cda41b1cdf419935",
+      "input_library_file_id": "libfile_b667a40d2f9c81918c5df3fc73ef331a",
+      "input_library_version": 0,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/F15-muscle-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 37704,
+          "sha256": "a3766374e1903fe995f1c46ae3eace147836f3879c14e9451183e8a8a918b2e6"
+        },
+        "full": {
+          "src": "assets/reference/F15-muscle-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 201198,
+          "sha256": "6d65013888372e57867fdc378244050fb0667fe40faa1d5bf3398608017430c0"
+        }
+      }
+    },
+    {
+      "id": "F16",
+      "kind": "pose",
+      "input_sha256": "60fc623580fc3820de22e86b3a6ab84ea515972ab2e143d10004cebab70cdff9",
+      "input_library_file_id": "libfile_7460d1dfe6448191945bf8caf03bae9c",
+      "input_library_version": 1,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/F16-pose-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 10520,
+          "sha256": "5c15a65664a0747e7662499f2dbce5454bf23eb9bb0dd7d3248906b9c919a5ea"
+        },
+        "full": {
+          "src": "assets/reference/F16-pose-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 73538,
+          "sha256": "66e5bffe704b28f076960be4e0f8d22ebafa20ab83432d21086be376602e351e"
+        }
+      }
+    },
+    {
+      "id": "F16",
+      "kind": "muscle",
+      "input_sha256": "e5e058ddd112c899235d79d744375d13fa71dd757089d706df4ff798660f0f06",
+      "input_library_file_id": "libfile_0755a0594310819186056ddd8c11b89d",
+      "input_library_version": 0,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/F16-muscle-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 22390,
+          "sha256": "093ed599941715bfca520bd9cce8b6ac222d55a587bd10a8920c3ec3d67cc95f"
+        },
+        "full": {
+          "src": "assets/reference/F16-muscle-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 129082,
+          "sha256": "188d0da2c86f7b63aa53925bcc6778a4776d6fc92dd2909bf69050cae3ab5c52"
+        }
+      }
+    },
+    {
+      "id": "F17",
+      "kind": "pose",
+      "input_sha256": "9e468ef8eef07744b563bd0d043838378502dbf153ca382c47b113bee618f2c3",
+      "input_library_file_id": "libfile_0b6070f5b7b08191a3c7dcc293433a88",
+      "input_library_version": 1,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/F17-pose-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 11258,
+          "sha256": "dd61712d390f3e213fdaec0f6f35068cabf2d5228c879df741e977a0edc04d72"
+        },
+        "full": {
+          "src": "assets/reference/F17-pose-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 70914,
+          "sha256": "786cad688b4f856314119e2968f63cde8a54f2b10c147a7673524e6368f65288"
+        }
+      }
+    },
+    {
+      "id": "F17",
+      "kind": "muscle",
+      "input_sha256": "0c68b4db69614a208015aa45a7c05506fcaccb8fce96a50fe365c17dde671a87",
+      "input_library_file_id": "libfile_c00000e6aa3c81919abd81c8d930a299",
+      "input_library_version": 0,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/F17-muscle-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 35326,
+          "sha256": "b5d0a5893940bd41ab30b440e826501dae1d4290440a90c7322a5eabca45a0d0"
+        },
+        "full": {
+          "src": "assets/reference/F17-muscle-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 190434,
+          "sha256": "ab59ab9a5f20943103f282f46aad9f6d3d98aa735e153a00c3373f92e95538b0"
+        }
+      }
+    },
+    {
+      "id": "F18",
+      "kind": "pose",
+      "input_sha256": "aae179e40e5d27e1c5302ccd815e4f51111163f32b66f2e11f36693b72899aba",
+      "input_library_file_id": "libfile_b0f3fbe506108191ac3f33e6d0ad9bc8",
+      "input_library_version": 1,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/F18-pose-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 11702,
+          "sha256": "3fb6f5fbc0fed429b751fb03a5ecbf6ee3d0866c3abf3044694ccb14de5146fa"
+        },
+        "full": {
+          "src": "assets/reference/F18-pose-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 75148,
+          "sha256": "77893d833e5d7bc2c85cc3d3e1bb7f704105bf2b09af6fdbb3f926d53c78a7d0"
+        }
+      }
+    },
+    {
+      "id": "F18",
+      "kind": "muscle",
+      "input_sha256": "77a44da2234528811315b4e2d6266e7b07bf1195e8af320b4eb0856525e335e1",
+      "input_library_file_id": "libfile_072870a4bf148191a6d0477f92fb181f",
+      "input_library_version": 0,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/F18-muscle-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 35046,
+          "sha256": "c31a5d66a30f9551c3a4dad8e0844fe7fc67bd13634f3469eff5daa8f461a68d"
+        },
+        "full": {
+          "src": "assets/reference/F18-muscle-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 188574,
+          "sha256": "b5136f0fb3769f5edfa52dc664c578356cbb43e341e87c4b5f2df12b70218b59"
+        }
+      }
+    },
+    {
+      "id": "F19",
+      "kind": "pose",
+      "input_sha256": "797950e0fce04e704471011a80fe321faf9faf752c3b1c48f296c7e6f134f30f",
+      "input_library_file_id": "libfile_5563aa22ff048191884245026768e64a",
+      "input_library_version": 0,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/F19-pose-thumb.webp",
+          "width": 640,
+          "height": 320,
+          "bytes": 6268,
+          "sha256": "c24b8a7abd2aaa35fd4d64b120551ab5d57fe45ffe8c6f9635e14ca1f08dbdac"
+        },
+        "full": {
+          "src": "assets/reference/F19-pose-full.webp",
+          "width": 1600,
+          "height": 800,
+          "bytes": 44664,
+          "sha256": "a7891fe25525cb2251c3e89ae0f7c5170e82f0dbdfa7aac8dabdea3b11db6c0a"
+        }
+      }
+    },
+    {
+      "id": "F19",
+      "kind": "muscle",
+      "input_sha256": "d9ea3b14af1538469f12f675dbf1f1c6bdea480c09fb4afdae742fdec5265766",
+      "input_library_file_id": "libfile_8c3dabf7e2c08191b99b188f1a6caab5",
+      "input_library_version": 0,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/F19-muscle-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 35512,
+          "sha256": "9492bd0f38f51f5d851f843a13b32504b7c86e7f1748117b71a3c311bbcde766"
+        },
+        "full": {
+          "src": "assets/reference/F19-muscle-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 212662,
+          "sha256": "4ca18cf5fd0a4f676539b46d2b30ddaac76c76d5d937dcb32586a808b855d265"
+        }
+      }
+    },
+    {
+      "id": "F20",
+      "kind": "pose",
+      "input_sha256": "5c9c9fdf320539bcc84c26b0dfa86e909931b45a879bc845c2d950427db98a57",
+      "input_library_file_id": "libfile_bddc580ceb488191a3e2377c011254db",
+      "input_library_version": 0,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/F20-pose-thumb.webp",
+          "width": 640,
+          "height": 320,
+          "bytes": 10104,
+          "sha256": "2e7a0232c4f6a137b13bbb1f0eb3b982bbbb66a8771b78a73059854c9d39d1d5"
+        },
+        "full": {
+          "src": "assets/reference/F20-pose-full.webp",
+          "width": 1600,
+          "height": 800,
+          "bytes": 91816,
+          "sha256": "d521a1aa5160edcb2bf632b4a986ee7f7d730765893bf1b48db2fca5f950cb38"
+        }
+      }
+    },
+    {
+      "id": "F20",
+      "kind": "muscle",
+      "input_sha256": "fcc243973411bc9f14e289268dc43ea449b2fb330c0e5efa999d3767895d9870",
+      "input_library_file_id": "libfile_4a66ffd9803881919112ce3b072e7816",
+      "input_library_version": 0,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/F20-muscle-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 26730,
+          "sha256": "c3401d55f86df408a35867a9559cdfa55874cfb23da6a822aba22a4f96ea1189"
+        },
+        "full": {
+          "src": "assets/reference/F20-muscle-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 145998,
+          "sha256": "4efe0379e2522522ce88dec5f25e51b8f3ce70abdd3e50e2bc2bd9542980341b"
+        }
+      }
+    },
+    {
+      "id": "F21",
+      "kind": "pose",
+      "input_sha256": "cc374d6a6ca040a7ebc25b2f2d938cc9b916f6ecb11ac795c1bf121d135e6976",
+      "input_library_file_id": "libfile_80afbae77fc0819197e173f2a6f28b6b",
+      "input_library_version": 0,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/F21-pose-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 17344,
+          "sha256": "e531f4bfac43c0e0ef458860f734c5bb30951d5bb012af1ade76455d5b7358c4"
+        },
+        "full": {
+          "src": "assets/reference/F21-pose-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 105312,
+          "sha256": "908db9047fc5acabbf2b6a619e14944d52f5b8a3b3ab6993cf9229ba5507f33d"
+        }
+      }
+    },
+    {
+      "id": "F21",
+      "kind": "muscle",
+      "input_sha256": "8be01250b5ac903c93bf2e563e649e333056d79aac241db9484721967fde82e5",
+      "input_library_file_id": "libfile_97ad8e9c6a5c8191a1b82ebc247b0edd",
+      "input_library_version": 0,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/F21-muscle-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 25598,
+          "sha256": "963ef801588f1eca0d1be3e957ec4289f026fec95e180f34b5f80d07931fd7c4"
+        },
+        "full": {
+          "src": "assets/reference/F21-muscle-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 144518,
+          "sha256": "3a576755369c20ebb51f2f615c096391539a76c7fb391c88406fa71feb9cb8cd"
+        }
+      }
+    },
+    {
+      "id": "F22",
+      "kind": "pose",
+      "input_sha256": "14d405c5ad24abc7b7f6a6ade6038b877477c0f94dfe1c3c826d852dff8b604b",
+      "input_library_file_id": "libfile_901df188a3488191b3b11b73a9c44d92",
+      "input_library_version": 0,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/F22-pose-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 10854,
+          "sha256": "a1169cb0108cfe88d3bc008bb442952aaf644e0146d0714a93aa953b3a9844d6"
+        },
+        "full": {
+          "src": "assets/reference/F22-pose-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 76982,
+          "sha256": "22b9aee3f1b1874ff8697293be59a636752d3d3101d94f894d0c8572753da9df"
+        }
+      }
+    },
+    {
+      "id": "F22",
+      "kind": "muscle",
+      "input_sha256": "22c858a0ea6e5b57911398738c03eb7c06124fc8fd6f9cdb7effcc89abe0da1c",
+      "input_library_file_id": "libfile_22478ee077a88191904a58e75cbf777e",
+      "input_library_version": 0,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/F22-muscle-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 26404,
+          "sha256": "24ce12c03955d4885e05b869bd8b3c65966699b5adceb8c3cead2b81dfc2f592"
+        },
+        "full": {
+          "src": "assets/reference/F22-muscle-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 146160,
+          "sha256": "903c2e727dd2a8bf4ff4c31386fca6bc6ab4bdb72972bf6eaa0c9f63691f960e"
+        }
+      }
+    },
+    {
+      "id": "F23",
+      "kind": "pose",
+      "input_sha256": "ee33b447f576b716478e3d8c4af929eaffdc08841784b1382dcf842daefcf89a",
+      "input_library_file_id": "libfile_3811fa61159c8191980b8f76b53a9c74",
+      "input_library_version": 1,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/F23-pose-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 10244,
+          "sha256": "cf2682b12594fddbc0324b2900211aeb993a2afcd79d6d51270af02b801ae074"
+        },
+        "full": {
+          "src": "assets/reference/F23-pose-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 63760,
+          "sha256": "15eb354a9ee30ae4caf61af18c450ac20a956e791312ec64068e25b5499373e2"
+        }
+      }
+    },
+    {
+      "id": "F23",
+      "kind": "muscle",
+      "input_sha256": "1df86ab2470f59430f898df5dd63c1fe20c3e685c0c902cb906f9fd339a6a014",
+      "input_library_file_id": "libfile_5ab57aecc16c8191a8c535290d05bd89",
+      "input_library_version": 0,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/F23-muscle-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 36354,
+          "sha256": "fee1cbfbee09e20133e3c183f668f9db1742b7d237883ee20202adb5fd4192df"
+        },
+        "full": {
+          "src": "assets/reference/F23-muscle-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 201410,
+          "sha256": "31e6dc8de7c8ae57884bc1ef71d324343d225c08c91a2592bedfb5134cd2ab11"
+        }
+      }
+    },
+    {
+      "id": "F24",
+      "kind": "pose",
+      "input_sha256": "033b3101893d142d5c77dd6dbd7c50663b35e37e2fee8ebad4d334a26291d66f",
+      "input_library_file_id": "libfile_951db1acb90c8191bb3bf3c4a19922e8",
+      "input_library_version": 1,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/F24-pose-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 14442,
+          "sha256": "8e03b4b286058fe9e8da514b37579b3467f6b0cf62279f18e2c36165a26f3900"
+        },
+        "full": {
+          "src": "assets/reference/F24-pose-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 92752,
+          "sha256": "07284c49a8facd93ea843e4feb49c10ac65dfc885ae6de3b92b98d74447f968e"
+        }
+      }
+    },
+    {
+      "id": "F24",
+      "kind": "muscle",
+      "input_sha256": "17bc5e91b6aa6bcbc7cbc5ac91e7729c0c1f4fa150041ae3cd8087b154bd470e",
+      "input_library_file_id": "libfile_e66bb7b3e9d08191889c0bc229e038e5",
+      "input_library_version": 0,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/F24-muscle-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 35252,
+          "sha256": "39c60537cd8cc38b47f0569b985517493c4fc2fb7c18fe13ee8938db99c517cd"
+        },
+        "full": {
+          "src": "assets/reference/F24-muscle-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 196522,
+          "sha256": "b35303ca098c9d1c449964ad313cc7d01f673a2accd6e98ca2788dc7bdde5a6f"
+        }
+      }
+    },
+    {
+      "id": "F25",
+      "kind": "pose",
+      "input_sha256": "222e024b8e50861d79972eefb6cc04fd5e437e714b4a78bf11fcdd83276bfbec",
+      "input_library_file_id": "libfile_261fc754404c81918d102b21d574b87f",
+      "input_library_version": 1,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/F25-pose-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 10298,
+          "sha256": "1e670791f5c825cacd97b9de81489f6c990896ec28ecc4ed6ef35166b15038ed"
+        },
+        "full": {
+          "src": "assets/reference/F25-pose-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 85882,
+          "sha256": "d4fd4b945f2190559918932b21897107cdb96f4cc9c8335d1223e58e7c729482"
+        }
+      }
+    },
+    {
+      "id": "F25",
+      "kind": "muscle",
+      "input_sha256": "58d7be9bee29576ac421fb875f9211c12743ef44e8ee58495ca72a09aa167b76",
+      "input_library_file_id": "libfile_22d0494fada88191a9b4c7936f7afe20",
+      "input_library_version": 0,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/F25-muscle-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 36610,
+          "sha256": "0ca67cf430186715dadc6290864d6b988d633c22793a364fca3db77d354e1676"
+        },
+        "full": {
+          "src": "assets/reference/F25-muscle-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 198816,
+          "sha256": "feaca8eaa962ed1cdfbf03b8dbc6a267059cc22d7dfab6cb459b387e3a1d337b"
+        }
+      }
+    },
+    {
+      "id": "F26",
+      "kind": "pose",
+      "input_sha256": "f600aa23ba6880b72a135ae5edc6a91d74c2a94152f4a9fa81711e3fa81ecf64",
+      "input_library_file_id": "libfile_abad74e6e69081918539c1b21fb2a1aa",
+      "input_library_version": 0,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/F26-pose-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 14332,
+          "sha256": "a4050fe068327a41b8bc1cf9b153f775eb9fda9274930ac5d1b0ca6a5b4957be"
+        },
+        "full": {
+          "src": "assets/reference/F26-pose-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 102904,
+          "sha256": "f04318ee6553cba6f9fa1a972bad7fe0b02b6b6face5bb359947d6d36b4d735e"
+        }
+      }
+    },
+    {
+      "id": "F26",
+      "kind": "muscle",
+      "input_sha256": "d732adb09041ae5b8b2a7d0e2c8ae92fa93047661615e9778ddd836139c628bf",
+      "input_library_file_id": "libfile_488bf0ce1ce481919cd68d0aa7e07ae1",
+      "input_library_version": 0,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/F26-muscle-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 24488,
+          "sha256": "1706072ec39f55cc1f33e597a04c14f186177b6caff02c6ac4c0d800a17ff152"
+        },
+        "full": {
+          "src": "assets/reference/F26-muscle-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 132182,
+          "sha256": "f3a3071f7100b5d19d18b240506a6efea088335247c749a00dc8bfa13ed84228"
+        }
+      }
+    },
+    {
+      "id": "F27",
+      "kind": "pose",
+      "input_sha256": "c7f4065fc66dc4d97be2693bb87014931963e469a4797079aef5f204e9e68c46",
+      "input_library_file_id": "libfile_e77923d3a7c88191bb30b34149500eec",
+      "input_library_version": 0,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/F27-pose-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 13214,
+          "sha256": "9350af6b4297020b85969e6fc23deb19232d8177cf60c82d38f7ce99efb59de9"
+        },
+        "full": {
+          "src": "assets/reference/F27-pose-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 93194,
+          "sha256": "d812343f9e3c1590b29f9f9f11592a326868a229d68d014a64d34cc26c1de4f6"
+        }
+      }
+    },
+    {
+      "id": "F27",
+      "kind": "muscle",
+      "input_sha256": "1c30368a317688ce07efe515280edbba5fdb65112c75fc21e6fde19900c13aab",
+      "input_library_file_id": "libfile_694f2e7d75e88191932eecdc5a1d857d",
+      "input_library_version": 0,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/F27-muscle-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 25874,
+          "sha256": "6bbfb5a3782f915c7358f8945a7fdc2cd7c37c04e93ffb8e2d1ce84266673003"
+        },
+        "full": {
+          "src": "assets/reference/F27-muscle-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 145668,
+          "sha256": "0eb6b278188323e563824ba102353603423e10cbc2b910f453dc82103aba28a3"
+        }
+      }
+    },
+    {
+      "id": "F28",
+      "kind": "pose",
+      "input_sha256": "6087709d4d46172ceeef0ad72e92b0a59094036eb8f481e00438d6f6cf57c5a7",
+      "input_library_file_id": "libfile_387d427c3ab48191b008f8a701a5935b",
+      "input_library_version": 0,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/F28-pose-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 10924,
+          "sha256": "392a85fdb3af2b6a6a0ca98383be523c053ff6abe78c0bc84d9930bf9f8d2ec4"
+        },
+        "full": {
+          "src": "assets/reference/F28-pose-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 81674,
+          "sha256": "e208f573d6733e06707ff7d0996099b263acdd4989fcb3359b03b2845fff3417"
+        }
+      }
+    },
+    {
+      "id": "F28",
+      "kind": "muscle",
+      "input_sha256": "e2d953dbb2401f0c567de6757d53fffc0824c5c3586828dfd4d9e33e5d4c7026",
+      "input_library_file_id": "libfile_4ae147df3b1c81918fc6e759cf3530f3",
+      "input_library_version": 0,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/F28-muscle-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 31016,
+          "sha256": "a971d88585e81c3b0d6fe50f006c597210343155efcfe41d39541a3c4bf35fc6"
+        },
+        "full": {
+          "src": "assets/reference/F28-muscle-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 173132,
+          "sha256": "e3d618a6fecf2a80183924873d4e613174ab13931f650c0bf669d912c963cc39"
+        }
+      }
+    },
+    {
+      "id": "W01",
+      "kind": "pose",
+      "input_sha256": "17804c08fd2e0da1e2fd607b45ee1fc2721d756357e4660e6953583e94d0cc98",
+      "input_library_file_id": "libfile_acf5642106b08191aa4835a5e196a1fb",
+      "input_library_version": 1,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/W01-pose-thumb.webp",
+          "width": 640,
+          "height": 320,
+          "bytes": 7912,
+          "sha256": "e3f2c801a57aa50c232d29c475f19cdeb07c3caed872c5aa056f0dacf49c5e9b"
+        },
+        "full": {
+          "src": "assets/reference/W01-pose-full.webp",
+          "width": 1600,
+          "height": 800,
+          "bytes": 58880,
+          "sha256": "e28a3c36fdbcf36adce40fc00ffbca1a8cb10adc56ef6d3af499483d076ee347"
+        }
+      }
+    },
+    {
+      "id": "W01",
+      "kind": "muscle",
+      "input_sha256": "3ef5c7b360a698000d5d6a0973f70171f907522463c09f8ee1f65783ec083d6b",
+      "input_library_file_id": "libfile_96b2762be524819191f52057f4bd4bbf",
+      "input_library_version": 0,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/W01-muscle-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 32392,
+          "sha256": "1c9b16a84e02143efb4730d16d54c2eab01e66bf8fc217cccbe9a49b68c54229"
+        },
+        "full": {
+          "src": "assets/reference/W01-muscle-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 176970,
+          "sha256": "6c220b7505cd8f20269658e0f4eab185abfbd05db2f3f9245e1daf6bc9e26acd"
+        }
+      }
+    },
+    {
+      "id": "W02",
+      "kind": "pose",
+      "input_sha256": "63d827bdf84fa0ac950175aece7fd793fe4ba9bababe2918e86b169201a6355a",
+      "input_library_file_id": "libfile_afcecdbdd9b081918105f1c7e5618def",
+      "input_library_version": 0,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/W02-pose-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 7950,
+          "sha256": "5cd4eeb6395317e3722508407a059f3d9b454624ad814b73b9bf4f3456cd175f"
+        },
+        "full": {
+          "src": "assets/reference/W02-pose-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 62540,
+          "sha256": "188eb2d4fbf756d42fa144dfe91fb6aca7da59c277bd7018428f397c911a9a11"
+        }
+      }
+    },
+    {
+      "id": "W02",
+      "kind": "muscle",
+      "input_sha256": "821676fac8893fcc6ab4368611fd6407226f6bea337fecfc56070811b441cebc",
+      "input_library_file_id": "libfile_70e29a4669d08191965050e87ffcfcc1",
+      "input_library_version": 0,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/W02-muscle-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 34908,
+          "sha256": "7f8e6069b0549f744e04dd974c47b9305ab585f25e36aa65e762a10c496e1157"
+        },
+        "full": {
+          "src": "assets/reference/W02-muscle-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 194634,
+          "sha256": "dcdf8d0782f857670194964055604321fd7651f62393e6a027c8e44ca9266792"
+        }
+      }
+    },
+    {
+      "id": "W03",
+      "kind": "pose",
+      "input_sha256": "c39ce129054f4c6c9a854b50a85b2892216131d3ad008628d220f477f166d535",
+      "input_library_file_id": "libfile_751e01aba4208191845d6fecc73b74ea",
+      "input_library_version": 0,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/W03-pose-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 12494,
+          "sha256": "9ca3c67e9bdf84807f2bec9d824b3795252a6f9b1348950e098180eeb7b69585"
+        },
+        "full": {
+          "src": "assets/reference/W03-pose-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 80070,
+          "sha256": "9e9838043c5f9f79c920e6468582e0ddab87223d4b06f321fa3c0aace6cf5036"
+        }
+      }
+    },
+    {
+      "id": "W03",
+      "kind": "muscle",
+      "input_sha256": "90ccb7031406669dd8250c4839b997bf42b05f621ee06a8e73858bb0a659e45a",
+      "input_library_file_id": "libfile_ae1bc5078bd08191a799d42619a36339",
+      "input_library_version": 0,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/W03-muscle-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 33148,
+          "sha256": "757743a9465088f2d872cca2d44ac4e467ccf638e15a3e9cd6df9c880596972e"
+        },
+        "full": {
+          "src": "assets/reference/W03-muscle-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 169530,
+          "sha256": "d70070c4331ac168e43ba2eb9d76ffcd62adc0befaa7aff7758b61e6d8c1a458"
+        }
+      }
+    },
+    {
+      "id": "W04",
+      "kind": "pose",
+      "input_sha256": "f3995ccf7eda68a54cfa379614b22936bd4a9dd547b524bd3ee4082110ef1f64",
+      "input_library_file_id": "libfile_f78f760b85a881919debef4df9e6c5ad",
+      "input_library_version": 0,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/W04-pose-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 12366,
+          "sha256": "1cd311c91ee43e5325005e8d7424846904f1b8f9edc60a1eb8f316ab65fc875e"
+        },
+        "full": {
+          "src": "assets/reference/W04-pose-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 76500,
+          "sha256": "ce18ddaecd7b18bda3e93478b138ce1759ba5ba4c571b6b74f44dee54aec3ab8"
+        }
+      }
+    },
+    {
+      "id": "W04",
+      "kind": "muscle",
+      "input_sha256": "444518bf1d9d842055140209dfaf62f4c03e6457c59078a2d3c111824531d754",
+      "input_library_file_id": "libfile_84ebc1043b24819192ebc22a773ecc7f",
+      "input_library_version": 0,
+      "output": {
+        "thumb": {
+          "src": "assets/reference/W04-muscle-thumb.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 33342,
+          "sha256": "bfc938f07786f84080dd7eec25c7a7b8661d3477ef93928026b5e1c23cc149d0"
+        },
+        "full": {
+          "src": "assets/reference/W04-muscle-full.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 182890,
+          "sha256": "a8c2b7b0cd261ab85bb07e99313ff9bf994949ddd30678718740cd5fa4a352ba"
+        }
+      }
+    }
+  ]
+}

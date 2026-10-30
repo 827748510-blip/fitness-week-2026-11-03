@@ -23,7 +23,7 @@ async (page) => {
     if (url.origin === 'http://127.0.0.1:18741' && req.method() === 'GET') {
       return route.continue();
     }
-    if (url.hostname === 'api.jstash.app' && req.method() === 'PUT') {
+    if (url.href === 'https://sync.invalid/cloud-write-disabled' && req.method() === 'PUT') {
       const payload = req.postDataJSON();
       requests.push(payload);
       const mode = nextMode; nextMode = 'success';
@@ -65,6 +65,7 @@ async (page) => {
   };
   try {
     await testPage.goto('http://127.0.0.1:18741/');
+    await testPage.evaluate(()=>window.TrainingWorkspace?.navigate('week'));
     await testPage.getByRole('heading', {name:'健身周计划', exact:true}).waitFor();
     check(requests.length === 0, 'fresh visit must not upload');
     const expected = ['11-03 周二','11-04 周三','11-05 周四','11-06 周五','11-07 周六','11-08 周日','11-09 周一'];
@@ -105,7 +106,7 @@ async (page) => {
 
     await testPage.locator('.ov-weight input').first().fill('55.5'); await waitStatus('已上传给教练');
     nextMode = 'fail'; await reset(); await waitStatus('同步失败');
-    await testPage.reload(); await waitStatus('已上传给教练');
+    await testPage.reload(); await testPage.evaluate(()=>window.TrainingWorkspace?.navigate('week')); await waitStatus('已上传给教练');
     check(isEmpty(remoteState), 'reload retries saved reset');
     await testPage.getByText('同步、备份与安装', {exact:true}).click();
 
@@ -129,7 +130,7 @@ async (page) => {
     await testLightbox('desktop');
     check(remoteState.weightLog.length === 1 && remoteState.weightLog[0].date === '2026-10-27', 'historical weight preserved');
     check(remoteState.liftLog.length === 1 && remoteState.weeks['2026-10-27'].days['2026-10-27'].done, 'historical lifts and archive preserved');
-    await testPage.getByRole('button', {name:'统计', exact:true}).click();
+    await testPage.evaluate(()=>window.TrainingWorkspace?window.TrainingWorkspace.navigate('stats'):switchTab('stats'));
     check((await testPage.locator('#completionBox').textContent()).includes('本周 0/7'), 'stats refresh after reset');
     check(await testPage.locator('#weightStatText').textContent() === '当前 88.8 kg', 'stats retain historical weight');
     await testPage.screenshot({path:'output/playwright/stats-after-reset.png'});

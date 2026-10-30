@@ -1,0 +1,103 @@
+{
+  "total_bytes": 103490840,
+  "packages": [
+    {
+      "filename": "AI-fitness-reference-part-01-of-05.zip",
+      "library_file_id": "libfile_f9e026b920c8819190331420533259c3",
+      "version": 1,
+      "size_bytes": 9050628,
+      "sha256": "8a12ad20a15dd8532021aece4fbbb807d55e1727cc9e344c1932cb26d8974945"
+    },
+    {
+      "filename": "AI-fitness-reference-part-02-of-05.zip",
+      "library_file_id": "libfile_54dbf796bec481918fc943c613d583a7",
+      "version": 1,
+      "size_bytes": 9014881,
+      "sha256": "7b6360bc5bdf1bddc123f0ecb2c2eee35fc883ef405a2775be181569c79d4bd1"
+    },
+    {
+      "filename": "AI-fitness-reference-part-03-of-05.zip",
+      "library_file_id": "libfile_bd485a1601308191aad342c637fc2557",
+      "version": 1,
+      "size_bytes": 9057434,
+      "sha256": "3faf9d4d7663c6247e7ac6a18142a83330b6f502c24cf212f49fe82f19e7b110"
+    },
+    {
+      "filename": "AI-fitness-reference-part-04-of-05.zip",
+      "library_file_id": "libfile_9d1200737f708191a3b65b9dc8cc223f",
+      "version": 1,
+      "size_bytes": 9486028,
+      "sha256": "a7fe3720359de8e20af072f0f2164f676a8cfe8005b874d1342920cb5e5305f4"
+    },
+    {
+      "filename": "AI-fitness-reference-part-05-of-05.zip",
+      "library_file_id": "libfile_e3aae32c6784819187e27f66c9eb3ea4",
+      "version": 1,
+      "size_bytes": 9163916,
+      "sha256": "c513777be53083a37a703fb7500f4d34319656f17052bc13b1d8a0d342cb2ec2"
+    },
+    {
+      "filename": "AI-fitness-supplement-F14-W04.zip",
+      "library_file_id": "libfile_e8ce9600497c8191abfee8960c587706",
+      "version": 0,
+      "size_bytes": 3129799,
+      "sha256": "a7c49b3e979504d9c6dcfc1760225ec345eb946c6b2114209fc83256d4e43007"
+    },
+    {
+      "filename": "AI-muscle-force-32-part-01-of-07.zip",
+      "library_file_id": "libfile_d43c314640a081919e78dd6f4699f128",
+      "version": 0,
+      "size_bytes": 8365876,
+      "sha256": "99f8f0ba1dea4b90d1300d0b1d8fc82da775f9c213588673566cd31c2fded751"
+    },
+    {
+      "filename": "AI-muscle-force-32-part-02-of-07.zip",
+      "library_file_id": "libfile_0c8c475e73bc8191971e1e93fdcc47a5",
+      "version": 0,
+      "size_bytes": 8080044,
+      "sha256": "eb27a8340e78d7b072239b71f2a1a15519aed231e4100aa6bb2e3989eec5bc60"
+    },
+    {
+      "filename": "AI-muscle-force-32-part-03-of-07.zip",
+      "library_file_id": "libfile_2574b2634db48191b4577ed81bd75c9e",
+      "version": 0,
+      "size_bytes": 6897743,
+      "sha256": "ea86be9c97fa546acdc3f52414eae389e436a2a8ed531e6ba8f47379409358a2"
+    },
+    {
+      "filename": "AI-muscle-force-32-part-04-of-07.zip",
+      "library_file_id": "libfile_acff6309a2f88191917c647db45347d4",
+      "version": 0,
+      "size_bytes": 8351941,
+      "sha256": "6cd3fe430190a3de9fd6773395ca5a93b69fdd3463ab1b577b77c7f4901d4522"
+    },
+    {
+      "filename": "AI-muscle-force-32-part-05-of-07.zip",
+      "library_file_id": "libfile_334a000e714c8191bdb3ce51908e8839",
+      "version": 0,
+      "size_bytes": 8237252,
+      "sha256": "68694d7a084faf7aa6db39e7a4d0cd39c958dcb8a3dd1d2eeb0b8c48d8cca565"
+    },
+    {
+      "filename": "AI-muscle-force-32-part-06-of-07.zip",
+      "library_file_id": "libfile_ce650b5b7934819193add3392622ad3b",
+      "version": 0,
+      "size_bytes": 8169883,
+      "sha256": "410fd7c7b048a44181bc367d76f8e43e419325346ca1979919a8f1e9af058013"
+    },
+    {
+      "filename": "AI-muscle-force-32-part-07-of-07.zip",
+      "library_file_id": "libfile_a108ed4f02fc8191a82be9effa153cc2",
+      "version": 0,
+      "size_bytes": 5028625,
+      "sha256": "1dd629f5537a40dee316cce2877bbbb744849ce1b77ea5f9ce218d2b6c557997"
+    },
+    {
+      "filename": "fitness-independent-review-c57bec205-package.zip",
+      "library_file_id": "libfile_e27e94ce295081919bd88e7fb4c0a894",
+      "version": 0,
+      "size_bytes": 1456790,
+      "sha256": "144b585417ad4054d0c32a4ea728e79cbfee9891353b6fd7cdcbfb3695caa0a0"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "result": "PASS",
+  "baseline": "279df14d86c5b50a0e9753cb5e94e1f81838d12e",
+  "release": "2026-10-30-gallery-v12",
+  "checks": [
+    "legacy worker installed against actual rollback baseline",
+    "current worker replaces old cache and preserves primary records, group sidecar and foreign cache",
+    "core reference code precached; no gallery bulk download or full images prefetched",
+    "real offline reload restores workspace, visited preview and training data",
+    "unvisited image offline shows failure and retains text guidance",
+    "reconnection image retry; no external data read or real sync write"
+  ],
+  "errors": [],
+  "realExternalTraffic": 0,
+  "worker": "real Chromium",
+  "iOSSafari": "not tested"
+}
