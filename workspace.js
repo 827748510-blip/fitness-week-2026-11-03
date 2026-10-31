@@ -16,6 +16,12 @@
     if(committed)saved.sessions=saved.pending.sessions;
     recovery=committed?'已从本机恢复日志找回组次记录。':'上次操作未写入训练记录，已保留操作前的组次和输入。';
   }
+  if(saved.pending?.version===2){
+    let committed=false;
+    try{committed=typeof saved.pending.commitId==='string'&&/^[a-z0-9-]{1,100}$/.test(saved.pending.commitId)&&JSON.parse(localStorage.getItem(STORAGE_KEY)||'null')?.workbenchCommit===saved.pending.commitId;}catch(_){}
+    if(committed){saved.sessions=saved.pending.sessions;saved.restEnd=0;}
+    recovery=committed?'已从恢复日志找回导入或清空后的组次。':'上次导入或清空未提交，已保留原记录和组次。';
+  }
   let selectedDate=days.some(d=>d.date===saved.date)?saved.date:days[0].date;
   let selectedId=saved.exercise||'a_row',view='train',restEnd=0,timer=0,rendering=false;
   let sessions=normalizeSessions(saved.sessions);
@@ -73,6 +79,38 @@
     error=cleaned?'':'操作已保存，组次恢复日志待整理；可安全重开，恢复可写后会自动整理。';
     return true;
   }
+  function replaceRecords(nextSessions,nextPrimary){
+    // Whole-record operations need a durable decision that survives later
+    // unrelated primary edits while sidecar compaction is still unavailable.
+    const next=JSON.parse(JSON.stringify(nextPrimary));
+    const commitId=window.crypto?.randomUUID?.() || `${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}`;
+    next.workbenchCommit=commitId;
+    next.weeks[next.weekKey]={days:JSON.parse(JSON.stringify(next.days))};
+    let previousRaw;
+    try{
+      previousRaw=localStorage.getItem(KEY);
+      localStorage.setItem(KEY,JSON.stringify({...sidecar(),pending:{version:2,commitId,sessions:nextSessions}}));
+    }catch(_){throw new Error('组次无法保存，操作未提交；原记录与组次保留。');}
+    let refreshNeeded=false;
+    try{save(next);}
+    catch(_){
+      // save() also updates UI after its primary write. A notification error
+      // cannot roll back an already committed cross-storage transaction.
+      let committed=state.workbenchCommit===commitId;
+      try{committed ||= JSON.parse(localStorage.getItem(STORAGE_KEY)||'null')?.workbenchCommit===commitId;}catch(_){}
+      if(committed){refreshNeeded=true;}
+      else{
+        // If rollback also fails, canonical old groups and the uncommitted
+        // journal remain on disk. Startup checks the primary commit identity.
+        try{if(previousRaw===null)localStorage.removeItem(KEY);else localStorage.setItem(KEY,previousRaw);}catch(_){}
+        throw new Error('训练记录无法保存，操作未提交；原记录与组次保留。');
+      }
+    }
+    sessions=nextSessions;restEnd=0;clearInterval(timer);timer=0;
+    const cleaned=persist();
+    error=refreshNeeded?'记录已保存；界面提示更新失败，请重新打开核对。':cleaned?'':'操作已保存，恢复日志待整理；重开会恢复已提交数据。';
+    return {cleanupPending:!cleaned,refreshNeeded};
+  }
   function paintAction(){
     if(view!=='train'){action.hidden=true;return;}action.hidden=false;
     const {ex}=current();if(!ex){action.innerHTML='<p>恢复日也算训练的一部分。完成后在周计划手动确认。</p><button type="button" data-go-week>查看恢复计划</button>';return;}
@@ -90,7 +128,7 @@
     const index=list.indexOf(ex),p=ex?plan(ex):null,entry=ex?log(ex):null;
     const weekdays='日一二三四五六';
     pane.innerHTML=`<div class="workspace-intro"><div><p class="workspace-eyebrow">专注这一组 · 按自己的节奏</p><h1>TRAINING<span>训练工作台</span></h1></div><label class="date-control"><span>当前计划</span><select id="workDate" aria-label="训练日期">${days.map(d=>`<option value="${d.date}" ${d.date===selectedDate?'selected':''}>${d.date.slice(5).replace('-','/')} 周${d.dow} · ${d.type==='R'?'恢复':`力量 ${d.type}`}</option>`).join('')}</select></label></div>
-      <div class="work-week-strip" aria-label="本周日期">${days.map(d=>`<button type="button" data-pick-date="${d.date}" class="${d.date===selectedDate?'selected':''}"><span>周${d.dow}</span><strong>${d.date.slice(8)}</strong><i class="${state.days[d.date].done?'done':''}"></i></button>`).join('')}</div><div class="session-strip"><span>${day.type==='R'?'恢复与活动':`力量 ${day.type} · ${list.length} 个动作`}</span><span>${selectedDate} 计划</span></div>
+      <div class="work-week-strip" aria-label="本周日期">${days.map(d=>`<button type="button" data-pick-date="${d.date}" class="${d.date===selectedDate?'selected':''}"><span>周${d.dow}</span><strong>${d.date.slice(8)}</strong><i class="${state.days[d.date].done?'done':''}"></i></button>`).join('')}</div><p class="work-sync-note" role="status">${SYNC.enabled?'安全同步已配置 · 上传状态见周计划':'同步未启用 · 记录仅保存在本机，请定期导出备份。'}</p><div class="session-strip"><span>${day.type==='R'?'恢复与活动':`力量 ${day.type} · ${list.length} 个动作`}</span><span>${selectedDate} 计划</span></div>
       ${ex?`<div class="workspace-grid"><div class="work-main"><div class="current-heading"><div><p>当前动作 <span>${String(index+1).padStart(2,'0')} / ${String(list.length).padStart(2,'0')}</span></p><h2>${safe(ex.name)}</h2></div><div class="exercise-switch"><button type="button" data-prev-ex aria-label="上一个动作">${icon('back')}</button><button type="button" data-next-ex aria-label="下一个动作">${icon('next')}</button></div></div>
       <div class="workbench-visual">${window.TrainingReferences.card(ex)}<p class="work-reference-cues">注意：${safe(ex.cues)}</p></div>
       </div><aside class="work-entry"><div class="set-heading"><h3>记录这一组</h3><span>${state.days[selectedDate].exercises[ex.id]?.done&&!entry.sets.length?'已有完成记录':`${entry.sets.length} / ${p.groups} 组完成`}</span></div><div class="set-chips" aria-label="本机组次进度">${Array.from({length:p.groups},(_,i)=>`<span class="set-chip ${i<entry.sets.length?'complete':i===entry.sets.length?'current':''}">${i<entry.sets.length?icon('check'):`${String(i+1).padStart(2,'0')}`}<small>${i<entry.sets.length?`${safe(entry.sets[i].reps)} ${p.timed?'秒':'次'}`:'待完成'}</small></span>`).join('')}</div>
@@ -158,7 +196,7 @@
   window.visualViewport?.addEventListener('resize',keyboard);window.visualViewport?.addEventListener('scroll',keyboard);document.addEventListener('focusout',()=>setTimeout(keyboard,60));
   document.addEventListener('visibilitychange',()=>{if(!document.hidden)paintAction();});
   pane.addEventListener('change',event=>{if(event.target.dataset.action==='variant'){const {ex}=current();log(ex).variant=event.target.value;persist();}});
-  window.TrainingWorkspace={render,navigate,onRecordsChanged(){if(view==='stats')renderStats();},exportData:()=>({version:1,sessions}),restore(data){sessions=data?.version===1?normalizeSessions(data.sessions):{};stopRest();persist();},clearWeek(){sessions={};stopRest();persist();},diagnostics:()=>({view,date:selectedDate,exercise:selectedId,restEnd,sessionKey:KEY}),};
+  window.TrainingWorkspace={render,navigate,onRecordsChanged(){if(view==='stats')renderStats();},exportData:()=>({version:1,sessions}),restore(data,nextPrimary=state){return replaceRecords(data?.version===1?normalizeSessions(data.sessions):{},nextPrimary);},clearWeek(nextPrimary=state){return replaceRecords({},nextPrimary);},diagnostics:()=>({view,date:selectedDate,exercise:selectedId,restEnd,sessionKey:KEY}),};
   render();navigate('train');
   if(Number.isFinite(saved.restEnd)&&saved.restEnd>Date.now()&&saved.restEnd<Date.now()+7200000)startRest((saved.restEnd-Date.now())/1000);
 })();

@@ -19,7 +19,7 @@ async (page) => {
     await test.waitForFunction(()=>document.querySelector('#syncHint').textContent.includes('模拟成功（未上传）'));
     check(await test.evaluate(()=>!localStorage.getItem('fitness-tracker-v2')),'production key untouched');
     check(await test.evaluate(()=>JSON.parse(localStorage.getItem('fitness-review-v2')).days['2026-11-03'].weight)==='66.6','isolated review record');
-    check(await test.evaluate(()=>SYNC.putUrl==='https://sync.invalid/review' && SYNC.editToken==='review-only-not-a-real-credential'),'production credential removed');
+    check(await test.evaluate(()=>SYNC.enabled && SYNC.endpoint==='http://127.0.0.1:18742/__review__/fitness-sync'),'production credential removed');
     check(external.length===0,'review mock requires no external network');
     await test.reload();
     check(await test.locator('.ov-weight input').first().inputValue()==='66.6','review reload retained');

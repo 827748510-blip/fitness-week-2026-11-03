@@ -9,7 +9,7 @@ const {chromium}=require('playwright');
   const results=[];
   const suites=process.argv.slice(2);
   try{
-    for(const name of suites.length?suites:['browser-smoke','cloud-extended-browser-smoke','cloud-journal-browser-smoke','gallery-browser-smoke']){
+    for(const name of suites.length?suites:['browser-smoke','cloud-extended-browser-smoke','cloud-journal-browser-smoke','gallery-browser-smoke','p2-browser-smoke']){
       const page=await browser.newPage();
       try{
         const run=vm.runInThisContext('('+fs.readFileSync(path.join(__dirname,name+'.js'),'utf8')+')');

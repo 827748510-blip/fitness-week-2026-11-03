@@ -51,3 +51,26 @@ test('active SW uses only its named cache and a late response cannot reopen a de
   assert.equal(opened,1);assert.equal(named.has(cacheName),false);
   let intercepted=false;handlers.fetch({request:{method:'GET',url:origin+'.example/index.html'},respondWith:()=>intercepted=true});assert.equal(intercepted,false);
 });
+
+for(const fault of ['open','match','put']){
+  test(`successful uncached network response survives cache ${fault} failure`,async()=>{
+    const handlers={},origin='http://cache-test.local';let background,response;
+    const caches={open:async()=>{
+      if(fault==='open')throw Error('synthetic cache unavailable');
+      return {match:async()=>{if(fault==='match')throw Error('synthetic read failure');},put:async()=>{if(fault==='put')throw Error('synthetic quota exceeded');}};
+    }};
+    const self={location:{origin},addEventListener:(n,fn)=>handlers[n]=fn};
+    vm.runInNewContext(fs.readFileSync(path.join(__dirname,'../sw.js'),'utf8'),{self,caches,URL,fetch:async()=>new Response('network success',{status:200,headers:{'X-Fixture':'network'}})});
+    handlers.fetch({request:{method:'GET',url:origin+'/uncached.webp'},waitUntil:p=>background=p,respondWith:p=>response=p});
+    const result=await response;assert.equal(result.status,200);assert.equal(await result.text(),'network success');assert.equal(result.headers.get('X-Fixture'),'network');await background;
+  });
+}
+
+test('a pending cache write does not delay the network response',async()=>{
+  const handlers={},origin='http://cache-test.local';let release,background,response,putStarted=false;
+  const caches={open:async()=>({match:async()=>undefined,put:()=>{putStarted=true;return new Promise(resolve=>release=resolve);}})};
+  const self={location:{origin},addEventListener:(n,fn)=>handlers[n]=fn};
+  vm.runInNewContext(fs.readFileSync(path.join(__dirname,'../sw.js'),'utf8'),{self,caches,URL,fetch:async()=>new Response('independent network response')});
+  handlers.fetch({request:{method:'GET',url:origin+'/uncached'},waitUntil:p=>background=p,respondWith:p=>response=p});
+  const result=await response;assert.equal(await result.text(),'independent network response');assert(putStarted);release();await background;
+});

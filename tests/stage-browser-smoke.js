@@ -6,8 +6,9 @@ async (page) => {
   const check=(ok,msg)=>{if(!ok) throw new Error(msg);};
   await context.route('**/*',async route=>{
     const req=route.request(),url=new URL(req.url());
+    if(url.pathname==='/sync-config.js')return route.fulfill({status:200,contentType:'text/javascript',body:'window.FITNESS_SYNC_CONFIG={enabled:true,endpoint:"/__test__/fitness-sync"};'});
     if(url.origin==='http://127.0.0.1:18741' && req.method()==='GET') return route.continue();
-    if(url.href==='https://sync.invalid/cloud-write-disabled' && req.method()==='PUT') {
+    if(url.pathname==='/__test__/fitness-sync' && req.method()==='PUT') {
       uploads.push(req.postDataJSON());return route.fulfill({status:200,contentType:'application/json',body:'{}'});
     }
     blocked.push(url.hostname);return route.abort();

@@ -14,7 +14,7 @@ test('reset after a completed upload persists and uploads a full empty snapshot 
   assertEmpty(app, JSON.parse(app.storage.get(KEY)));
   assert.equal(app.requests.length, 2);
   const request = app.requests[1];
-  assert.equal(request.syntheticAuth, true);
+  assert.equal(request.sameOriginSession, true);
   assert.equal(request.syntheticUrl, true);
   assert.equal(request.method, 'PUT');
   assert.equal(request.contentType, 'application/json');

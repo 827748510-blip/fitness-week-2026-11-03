@@ -23,7 +23,7 @@ test('final set saves weight and confirmation in one complete original-schema sn
   assert.equal(stored.days['2026-11-03'].done,false);
   app.tick();assert.equal(app.requests.length,1);
   assert.deepEqual(app.requests[0].payload.state,stored);
-  assert.equal(app.requests[0].syntheticAuth,true);
+  assert.equal(app.requests[0].sameOriginSession,true);
   assert.equal(app.requests[0].syntheticUrl,true);
   await app.settle(0);
 });

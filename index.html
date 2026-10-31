@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<meta name="fitness-release" content="2026-10-30-gallery-v12" />
+<meta name="fitness-release" content="2026-10-31-p2-review-v13" />
 <meta name="theme-color" content="#111416" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="apple-mobile-web-app-title" content="健身周计划" />
 <meta name="mobile-web-app-capable" content="yes" />
-<meta name="description" content="下周训练+饮食计划：勾选、记重量与体重；自动同步给教练" />
+<meta name="description" content="下周训练+饮食计划：勾选、记重量与体重；本机保存与可选安全同步" />
 <link rel="manifest" href="manifest.webmanifest" />
 <link rel="apple-touch-icon" href="apple-touch-icon.png" />
 <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png" />
@@ -206,11 +206,11 @@ footer{margin-top:28px;color:var(--muted);font-size:12px;text-align:center;line-
     <nav class="toc" id="toc" aria-label="每日计划"></nav>
     <div class="status" role="status" aria-live="polite">
       <p class="small" id="saveHint">记录会自动保存在本机</p>
-      <p class="small" id="syncHint">同步：等待改动…</p>
+      <p class="small" id="syncHint">同步未启用（配置待检查）</p>
     </div>
     <details class="setup">
       <summary>同步、备份与安装</summary>
-      <p>勾选、实际重量与体重先存本机，约 1–2 秒后自动同步给教练。同步失败时本机记录仍保留，可点「立即同步」重试。</p>
+      <p>勾选、实际重量与体重先存本机。仅在安全同步服务已配置后才上传；请以下方同步状态为准，未启用时可导出备份。</p>
       <div class="toolbar">
         <button class="primary" type="button" onclick="syncNow()">立即同步</button>
         <button type="button" onclick="exportJson()">导出备份</button>
@@ -232,7 +232,7 @@ footer{margin-top:28px;color:var(--muted);font-size:12px;text-align:center;line-
   <div id="days"></div>
 
   <footer>
-    基于你的 A 日实测重量预填建议栏 · 本机保存 + 自动同步教练 · 生成日期 2026-10-29
+    基于你的 A 日实测重量预填建议栏 · 本机保存 · 同步状态见页面提示 · 生成日期 2026-10-29
   </footer>
   </div><!-- /tab-week -->
 
@@ -273,23 +273,27 @@ footer{margin-top:28px;color:var(--muted);font-size:12px;text-align:center;line-
 <script src="stage.js"></script>
 <script src="reference-data.js"></script>
 <script src="references.js"></script>
+<script src="sync-config.js"></script>
 <script>
 const STORAGE_KEY = "fitness-tracker-v2";
 const OLD_STORAGE_KEY = "fitness-week-2026-11-03";
 const WEEK_KEY = "2026-11-03";
 
-/* Auto-sync to coach (no export step).
-   Write target: jstash public bin with a bin-scoped edit_token (NOT a GitHub PAT).
-   Risk: anyone who reads page source can overwrite this fitness log only.
-   Bot reads: https://j.jstash.app/REDACTED_BIN_ID
-            + gist/repo mirrors via GitHub Actions.
-*/
-const SYNC = {
-  putUrl: "https://sync.invalid/cloud-write-disabled",
-  readUrl: "https://sync.invalid/cloud-read-disabled",
-  editToken: "REDACTED_NO_SYNC_CREDENTIAL",
-  debounceMs: 1500
-};
+// Public code never contains a service credential. A configured relay must
+// authenticate the user server-side; this client cannot provision that access.
+function validateSyncConfig(config, baseUrl){
+  const disabled = reason => Object.freeze({enabled:false, reason, debounceMs:1500});
+  if(!config || config.enabled !== true) return disabled("未配置安全同步服务");
+  if(Object.keys(config).some(key=>!['enabled','endpoint'].includes(key))) return disabled("同步配置包含不支持的字段");
+  if(typeof config.endpoint !== 'string' || !config.endpoint.trim() || /(?:\.invalid\b|redacted|placeholder|disabled)/i.test(config.endpoint)) return disabled("同步地址未配置");
+  try{
+    const base = new URL(baseUrl), endpoint = new URL(config.endpoint, base);
+    const local = ['localhost','127.0.0.1','[::1]'].includes(base.hostname);
+    if(endpoint.origin !== base.origin || endpoint.username || endpoint.password || endpoint.search || endpoint.hash || !['https:','http:'].includes(endpoint.protocol) || (endpoint.protocol === 'http:' && !local) || endpoint.pathname === base.pathname) return disabled("同步地址必须是安全的同源服务");
+    return Object.freeze({enabled:true, endpoint:endpoint.href, debounceMs:1500});
+  }catch(_){return disabled("同步地址无效");}
+}
+const SYNC = validateSyncConfig(window.FITNESS_SYNC_CONFIG, window.location.href);
 let syncTimer = null;
 let syncInFlight = false;
 let syncQueued = false;
@@ -514,22 +518,26 @@ function loadState(){
     }
     if(!raw) return defaultState();
     const parsed = JSON.parse(raw);
-    if(!parsed.schemaVersion || !parsed.weeks){
-      const migrated = migrateV1(parsed);
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(migrated));
-      return migrated;
-    }
-    const base = defaultState();
-    mergeDaysInto(base.days, parsed.days);
-    base.weeks = (parsed.weeks && typeof parsed.weeks === "object") ? parsed.weeks : {};
-    base.weightLog = Array.isArray(parsed.weightLog) ? parsed.weightLog : [];
-    base.liftLog = Array.isArray(parsed.liftLog) ? parsed.liftLog : [];
-    if(!base.weeks[WEEK_KEY]) base.weeks[WEEK_KEY] = {days: JSON.parse(JSON.stringify(base.days))};
-    if(fromOld) localStorage.setItem(STORAGE_KEY, JSON.stringify(base));
+    const base = stateFromSnapshot(parsed);
+    if(fromOld || !parsed.schemaVersion || !parsed.weeks) localStorage.setItem(STORAGE_KEY, JSON.stringify(base));
     return base;
   }catch(e){
     return defaultState();
   }
+}
+
+// Normalize imports without temporarily replacing the primary storage key.
+function stateFromSnapshot(parsed){
+  if(!parsed || typeof parsed.days !== 'object' || !parsed.days || Array.isArray(parsed.days)) throw new Error("格式不对");
+  if(!parsed.schemaVersion || !parsed.weeks) return migrateV1(parsed);
+  const base = defaultState();
+  mergeDaysInto(base.days, parsed.days);
+  base.weeks = parsed.weeks && typeof parsed.weeks === 'object' && !Array.isArray(parsed.weeks) ? parsed.weeks : {};
+  base.weightLog = Array.isArray(parsed.weightLog) ? parsed.weightLog : [];
+  base.liftLog = Array.isArray(parsed.liftLog) ? parsed.liftLog : [];
+  if(typeof parsed.workbenchCommit === 'string' && /^[a-z0-9-]{1,100}$/.test(parsed.workbenchCommit)) base.workbenchCommit = parsed.workbenchCommit;
+  if(!base.weeks[WEEK_KEY]) base.weeks[WEEK_KEY] = {days: JSON.parse(JSON.stringify(base.days))};
+  return base;
 }
 
 function save(nextState = state){
@@ -554,6 +562,8 @@ function setSyncHint(msg, ok){
 }
 
 function buildPayload(){
+  // Local transaction identity is recovery metadata, not part of remote data.
+  const {workbenchCommit, ...syncState} = state;
   return {
     key: STORAGE_KEY,
     week: "2026-11-03 to 2026-11-09",
@@ -561,11 +571,20 @@ function buildPayload(){
     source: "pwa",
     schemaVersion: state.schemaVersion,
     weekKey: state.weekKey,
-    state
+    state:syncState
   };
 }
 
+function syncUnavailable(){
+  if(SYNC.enabled) return false;
+  if(syncTimer){clearTimeout(syncTimer);syncTimer=null;}
+  syncQueued = false;
+  setSyncHint("同步未启用：" + SYNC.reason + "；记录保存在本机，可导出备份。", false);
+  return true;
+}
+
 function scheduleSync(){
+  if(syncUnavailable()) return;
   setSyncHint("同步：改动已记下，约 1–2 秒后上传…");
   if(syncTimer){ clearTimeout(syncTimer); syncTimer=null; }
   if(syncInFlight){
@@ -582,6 +601,7 @@ function syncNow(){
 }
 
 async function syncRemote(){
+  if(syncUnavailable()) return;
   if(syncInFlight){
     syncQueued = true;
     setSyncHint("同步：等待当前上传结束后上传最新记录…");
@@ -591,12 +611,11 @@ async function syncRemote(){
   setSyncHint("同步：上传中…");
   const payload = buildPayload();
   try{
-    const res = await fetch(SYNC.putUrl, {
+    const res = await fetch(SYNC.endpoint, {
       method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer " + SYNC.editToken
-      },
+      credentials: "same-origin",
+      redirect: "error",
+      headers: {"Content-Type": "application/json"},
       body: JSON.stringify(payload)
     });
     if(!res.ok) throw new Error("HTTP " + res.status);
@@ -914,7 +933,7 @@ function exportJson(){
   a.href = URL.createObjectURL(new Blob([text], {type:"application/json"}));
   a.download = "fitness-week-2026-11-03-export.json";
   a.click();
-  alert("已复制/下载备份 JSON（一般无需导出，自动同步已开启）。");
+  alert("已复制/下载备份 JSON。记录保存在本机；同步状态见页面提示。");
 }
 
 function importJson(){
@@ -923,20 +942,18 @@ function importJson(){
   try{
     const obj = JSON.parse(text);
     const incoming = obj.state || obj;
-    if(!incoming.days) throw new Error("格式不对");
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(incoming));
-    state = loadState();
-    if(window.TrainingWorkspace) window.TrainingWorkspace.restore(obj.workbench);
+    const next = stateFromSnapshot(incoming);
+    const result = window.TrainingWorkspace ? window.TrainingWorkspace.restore(obj.workbench, next) : (save(next), null);
     render();
-    save();
-    alert("导入成功");
+    if(window.TrainingWorkspace) window.TrainingWorkspace.render();
+    alert(result?.refreshNeeded ? "导入已保存；界面提示更新失败，请重新打开核对。" : result?.cleanupPending ? "导入已保存；恢复日志待整理，重开会恢复已提交数据。" : "导入成功");
   }catch(e){
     alert("导入失败：" + e.message);
   }
 }
 
 function resetData(){
-  if(!confirm("确定清空本周所有勾选、训练重量与体重记录，并同步给教练？其它周历史记录保留。")) return;
+  if(!confirm("确定清空本周所有勾选、训练重量与体重记录？其它周历史记录保留。" + (SYNC.enabled ? "清空结果将同步给教练。" : "当前同步未启用。"))) return;
   const weekDates = new Set(days.map(d=>d.date));
   const cleared = {
     ...state,
@@ -945,21 +962,22 @@ function resetData(){
     weightLog: state.weightLog.filter(e=>!weekDates.has(e.date)),
     liftLog: state.liftLog.filter(e=>!weekDates.has(e.date))
   };
+  let result;
   try{
     // Keep the empty week under the same key so reopening retries it too.
-    save(cleared);
+    result = window.TrainingWorkspace ? window.TrainingWorkspace.clearWeek(cleared) : (save(cleared), null);
   }catch(e){
     document.getElementById("saveHint").textContent = "清空失败：无法保存到本机，请重试；原记录保留。";
     return;
   }
-  if(window.TrainingWorkspace) window.TrainingWorkspace.clearWeek();
   render();
-  document.getElementById("saveHint").textContent = "本机已清空本周 · 清空结果将同步给教练";
+  if(window.TrainingWorkspace) window.TrainingWorkspace.render();
+  document.getElementById("saveHint").textContent = "本机已清空本周" + (result?.cleanupPending ? " · 恢复日志待整理，重开将恢复已提交结果" : "") + (result?.refreshNeeded ? " · 界面提示更新失败，请重新打开核对" : "") + (SYNC.enabled ? " · 清空结果将同步给教练" : " · 同步未启用");
   syncNow();
 }
 
 render();
-setSyncHint("同步：就绪（改动会自动上传）");
+if(!syncUnavailable()) setSyncHint("同步：安全服务已配置（改动会自动上传）");
 // Push current local state once on open so coach sees phone data
 if(localStorage.getItem(STORAGE_KEY)){ scheduleSync(); }
 </script>

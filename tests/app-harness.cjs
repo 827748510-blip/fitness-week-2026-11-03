@@ -9,7 +9,7 @@ const scripts = [...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].map(match =>
 
 // No network implementation exists in this sandbox. All records and credentials
 // are synthetic; even accidental fetches can only enter the request queue below.
-function createApp({storage = new Map(), confirm = true} = {}) {
+function createApp({storage = new Map(), confirm = true, syncConfig = {enabled:true, endpoint:"/__test__/fitness-sync"}} = {}) {
   const elements = new Map();
   const timers = new Map();
   const requests = [];
@@ -57,19 +57,19 @@ function createApp({storage = new Map(), confirm = true} = {}) {
     fetch(url, options) {
       return new Promise((resolve, reject) => requests.push({
         // Check only synthetic credentials, never echo source credentials.
-        syntheticAuth: options.headers.Authorization === 'Bearer test-only-token',
-        syntheticUrl: url === 'https://sync.invalid/bin',
+        sameOriginSession: options.credentials === 'same-origin' && !options.headers.Authorization,
+        redirect: options.redirect,
+        syntheticUrl: url === 'http://127.0.0.1:18741/__test__/fitness-sync',
         method: options.method,
         contentType: options.headers['Content-Type'],
         payload: JSON.parse(options.body), resolve, reject
       }));
     },
-    navigator: {}, window: {addEventListener() {}, scrollTo() {}}
+    URL, navigator: {}, window: {FITNESS_SYNC_CONFIG:syncConfig, location:{href:"http://127.0.0.1:18741/"}, addEventListener() {}, scrollTo() {}}
   };
   element('tab-stats').hidden = true;
   const context = vm.createContext(sandbox);
   scripts.forEach(script => vm.runInContext(script, context));
-  vm.runInContext('SYNC.putUrl = "https://sync.invalid/bin"; SYNC.editToken = "test-only-token";', context);
   return {
     storage, requests, elements, timers,
     run: code => vm.runInContext(code, context),

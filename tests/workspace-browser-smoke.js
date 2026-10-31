@@ -12,7 +12,7 @@ async (page) => {
   try{
     await test.goto('http://127.0.0.1:18742/');await test.locator('#trainingWorkspace').waitFor();
     const empty=await core();
-    assert(await test.evaluate(()=>STORAGE_KEY==='fitness-review-v2'&&SYNC.putUrl==='https://sync.invalid/review'),'safe review isolation');
+    assert(await test.evaluate(()=>STORAGE_KEY==='fitness-review-v2'&&SYNC.enabled&&SYNC.endpoint==='http://127.0.0.1:18742/__review__/fitness-sync'),'safe review isolation');
     const first=await currentGuide().locator('.guide-scrub').inputValue();
     await test.waitForFunction(()=>TrainingStage.diagnostics().playing===1);
     await test.waitForTimeout(400);

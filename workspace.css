@@ -45,3 +45,5 @@ body.workbench-enabled{--bg:#111416;--card:#202527;--soft:#293234;--line:#353e40
 @media(max-width:799px){.workbench-visual .guide-canvas{object-fit:cover}}
 @media(max-height:500px) and (orientation:landscape){.workbench-visual .guide-canvas{object-fit:contain!important}}
 .work-bodyweight{display:flex!important;align-items:center;min-height:58px;background:#151c1b;border:1px solid #586b645c;border-radius:14px;padding:12px 14px;color:#bdcec4!important;font-size:14px!important}
+
+.work-sync-note{font-size:11px;line-height:1.6;color:#cbb78f;margin:0 0 10px}

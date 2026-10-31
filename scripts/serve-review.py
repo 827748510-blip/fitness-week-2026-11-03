@@ -25,12 +25,6 @@ def review_html():
         if before not in source:
             raise ValueError('Review isolation no longer matches the application source')
         source = source.replace(before, after, 1)
-    for key, value in [('putUrl', 'https://sync.invalid/review'),
-                       ('readUrl', 'https://sync.invalid/review'),
-                       ('editToken', 'review-only-not-a-real-credential')]:
-        source, count = re.subn(rf'{key}: "[^"\n]+"', f'{key}: "{value}"', source, count=1)
-        if count != 1:
-            raise ValueError(f'Review isolation cannot replace {key}')
     # A failed transformation must not expose a production storage key or token.
     if 'js_edit_' in source or 'const STORAGE_KEY = "fitness-tracker-v2"' in source:
         raise ValueError('Review isolation failed')
@@ -42,7 +36,7 @@ def review_html():
   const localFetch = window.fetch.bind(window);
   window.fetch = (input, options = {}) => {
     const url = new URL(typeof input === 'string' ? input : input.url, location.href);
-    if (url.href === 'https://sync.invalid/review') {
+    if (url.origin === location.origin && url.pathname === '/__review__/fitness-sync') {
       return Promise.resolve(new Response('{}', {status:200, headers:{'Content-Type':'application/json'}}));
     }
     if (url.origin === location.origin) return localFetch(input, options);
@@ -69,6 +63,14 @@ class ReviewHandler(SimpleHTTPRequestHandler):
             self.send_response(200)
             self.send_header('Content-Type', 'text/html; charset=utf-8')
             self.send_header('Content-Length', str(len(content)))
+            self.send_header('Cache-Control', 'no-store')
+            self.end_headers()
+            self.wfile.write(content)
+            return
+        if path == '/sync-config.js':
+            content = b'window.FITNESS_SYNC_CONFIG={enabled:true,endpoint:"/__review__/fitness-sync"};'
+            self.send_response(200)
+            self.send_header('Content-Type', 'text/javascript; charset=utf-8')
             self.send_header('Cache-Control', 'no-store')
             self.end_headers()
             self.wfile.write(content)

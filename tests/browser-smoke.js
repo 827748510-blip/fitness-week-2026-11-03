@@ -20,10 +20,11 @@ async (page) => {
   await context.route('**/*', async route => {
     const req = route.request();
     const url = new URL(req.url());
+    if (url.pathname === '/sync-config.js') return route.fulfill({status:200,contentType:'text/javascript',body:'window.FITNESS_SYNC_CONFIG={enabled:true,endpoint:"/__test__/fitness-sync"};'});
     if (url.origin === 'http://127.0.0.1:18741' && req.method() === 'GET') {
       return route.continue();
     }
-    if (url.href === 'https://sync.invalid/cloud-write-disabled' && req.method() === 'PUT') {
+    if (url.href === 'http://127.0.0.1:18741/__test__/fitness-sync' && req.method() === 'PUT') {
       const payload = req.postDataJSON();
       requests.push(payload);
       const mode = nextMode; nextMode = 'success';
